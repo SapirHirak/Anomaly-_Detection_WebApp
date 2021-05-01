@@ -1,5 +1,6 @@
 import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@material-ui/core";
 import { useState } from "react";
+import './App.css';
 
 
 const columns = [
@@ -76,8 +77,8 @@ export default function StickyHeadTable() {
 
     return (
         // <Paper className={classes.root}>
-        <div>
-            <TableContainer className={classes.container}>
+        <div calssName="tableCss">
+            <TableContainer calssName="tableCss" className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>

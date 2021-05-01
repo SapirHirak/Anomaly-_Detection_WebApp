@@ -1,4 +1,12 @@
 body {
 
-    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    background-image: linear-gradient(to top, #efcbfd 0%, #fdcbf1 1%, #e6dee9 100%);
+}
+
+.tableCss {
+    width: 50%;
+}
+
+.dragDrop {
+    width: 50%;
 }
