@@ -2,11 +2,11 @@
 import './App.css';
 import Graph from './Graph';
 import Search from './Search';
-import Table from './Table';
+// import TableApp from './TableApp';
 import DragDrop from './DragDrop';
-import { useState } from "react";
-
-import reactDom from 'react-dom';
+import DragAndDrop from './DragAndDrop';
+import StickyHeadTable from './StickyHeadTable';
+// import reactDom from 'react-dom';
 
 
 function App() {
@@ -15,16 +15,20 @@ function App() {
      { title: 'sec task', completed: false },
      { title: 'third task', completed: false }
    ]);*/
-
   return (
     <div className="App">
-      <h1>Welcome to Anomaly Detection Webapp!</h1>
-      <Graph />
-      <Table />
-      <Search />
+      <h1>Welcome to Anomaly Detection Webapp! </h1>
       <DragDrop />
+      <Graph />
+      <StickyHeadTable />
+        hellooooo
+      <Search />
+
     </div>
   );
 }
 
 export default App;
+
+
+
