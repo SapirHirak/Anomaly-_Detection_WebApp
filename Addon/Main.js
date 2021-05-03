@@ -1,7 +1,5 @@
-// const calculate = require('./build/Release/calculate')
-
-// console.log(calculate.calc())
-
 const learn = require('./build/Release/learnNormal')
 
-console.log(learn.learnN(1,2))
+// send path, followed by client id
+console.log(learn.learnN("anomalyTrain.csv",76))
+learn.detect("anomalyTest.csv", 12345432)

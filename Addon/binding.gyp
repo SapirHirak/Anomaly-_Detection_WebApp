@@ -13,10 +13,6 @@
     ],
   "targets": [
     {
-      "target_name": "calculate",
-      "sources": [ "./calculate.cpp" ]
-    },
-    {
       "target_name": "learnNormal",
       "sources": [ "./learnNormal.cpp" ]
     }

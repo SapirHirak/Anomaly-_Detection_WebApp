@@ -22,34 +22,35 @@ namespace learnNormal {
     using v8::Array;
     using v8::Exception;
 
+    SimpleAnomalyDetector sad;
 
-    void Method(const FunctionCallbackInfo<Value>&args) {
+    void Learn(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
-        Local<Context> context = isolate->GetCurrentContext();
-        Local<Object> obj = args[0]->ToObject(context).ToLocalChecked();
-
-        
-        TimeSeries tsTrain("anomalyTest.csv");
-	    TimeSeries tsTest("anomalyTest.csv");
-	    SimpleAnomalyDetector sad;
+        TimeSeries tsTrain(*v8::String::Utf8Value(args[0])); 
 	    sad.learnNormal(tsTrain);
-	    std::vector<AnomalyReport> anomalyReportVec;
-	    anomalyReportVec = sad.detect(tsTest);
-
-        // double f = sad.getCorrelationThreshold();
-        Local<Number> value1 = Local<Number>::Cast(args[0]);
-        Local<Number> value2 = Local<Number>::Cast(args[1]);
-        auto total = value2;
-        // double d = args[0]->NumberValue();
-        // ofstream file();
-
-        // auto total = Number::New(isolate, f);
-        args.GetReturnValue().Set(total);
-        
+        args.GetReturnValue().Set(args[1]->NumberValue());;
     }
 
+    void Detect(const FunctionCallbackInfo<Value>&args) {
+	    TimeSeries tsTest(*v8::String::Utf8Value(args[0]));
+	    std::vector<AnomalyReport> anomalyReportVec = sad.detect(tsTest);
+
+	    ofstream file("Anomalies-" + to_string((int)args[1]->NumberValue()) + ".json");
+	    if (file.is_open()) {
+	    	for (int i = 0; i < anomalyReportVec.size(); i++) {
+	    		file << anomalyReportVec[i].timeStep<< "," << anomalyReportVec[i].description << std::endl;
+	    	}
+	    	file.close();
+	    }
+        
+        args.GetReturnValue().Set(args[1]->NumberValue());
+    }
+
+
+
     void Initialize(Local<Object> exports) {
-        NODE_SET_METHOD(exports, "learnN", Method);
+        NODE_SET_METHOD(exports, "learnN", Learn);
+        NODE_SET_METHOD(exports, "detect", Detect);
     }
 
     NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize);
