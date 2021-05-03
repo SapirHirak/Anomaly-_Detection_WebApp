@@ -1,0 +1,1 @@
+cmd_Release/obj.target/learnNormal.node := g++ -o Release/obj.target/learnNormal.node -shared -pthread -rdynamic -m64  -Wl,-soname=learnNormal.node -Wl,--start-group Release/obj.target/learnNormal/learnNormal.o -Wl,--end-group 
