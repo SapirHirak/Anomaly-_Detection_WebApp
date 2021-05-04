@@ -2,7 +2,8 @@ cmd_Release/obj.target/learnNormal/learnNormal.o := g++ -o Release/obj.target/le
 Release/obj.target/learnNormal/learnNormal.o: ../learnNormal.cpp \
  ../timeseries.cpp ../timeseries.h ../SimpleAnomalyDetector.cpp \
  ../SimpleAnomalyDetector.h ../anomaly_detection_util.h \
- ../AnomalyDetector.h ../minCircle.h ../anomaly_detection_util.cpp \
+ ../AnomalyDetector.h ../minCircle.h ../HybridAnomalyDetector.cpp \
+ ../HybridAnomalyDetector.h ../anomaly_detection_util.cpp \
  ../minCircle.cpp /root/.cache/node-gyp/10.19.0/include/node/node.h \
  /root/.cache/node-gyp/10.19.0/include/node/v8.h \
  /root/.cache/node-gyp/10.19.0/include/node/v8-version.h \
@@ -17,6 +18,8 @@ Release/obj.target/learnNormal/learnNormal.o: ../learnNormal.cpp \
 ../anomaly_detection_util.h:
 ../AnomalyDetector.h:
 ../minCircle.h:
+../HybridAnomalyDetector.cpp:
+../HybridAnomalyDetector.h:
 ../anomaly_detection_util.cpp:
 ../minCircle.cpp:
 /root/.cache/node-gyp/10.19.0/include/node/node.h:
