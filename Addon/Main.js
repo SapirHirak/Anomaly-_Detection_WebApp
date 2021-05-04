@@ -1,18 +1,28 @@
-const learn = require('./build/Release/learnNormal')
+const api = require('./build/Release/API')
 
-// let clientId = 12345
+let modelId1 = 12345
+let modelId2 = 56789
 
-// send path for learning
-// console.log(learn.learnN("anomalyTrain.csv"))
-learn.learnN("reg_flight.csv")
+// send path for learning, ID for storing normalModel, and tpye of detection we want
+api.learn("reg_flight.csv", modelId1, "regression")
+api.learn("anomalyTrain.csv", modelId2, "hybrid")
+// test invalid id
+api.learn("anomalyTrain.csv", 90, "oopsie")
 
-// send path, followed by client id
-// let anomaliesJSON = learn.detect("anomalyTest.csv", clientId)
+// send path for detecting continuous anomalies and ID for the normalModel we want
+let anomaliesJSON1 = api.detect("anomaly_flight.csv", modelId1)
+console.log(anomaliesJSON1)
+let anomaliesJSON2 = api.detect("anomalyTest.csv", modelId2)
+console.log(anomaliesJSON2)
 
-// send path for detecting continuous anomalies
-let anomaliesJSON = learn.detect("anomaly_flight.csv")
-console.log(anomaliesJSON)
+// test invalid id
+let anomaliesJSON3 = api.detect("anomalyTest.csv", 90)
+console.log(anomaliesJSON3)
 
-//print json to make sure it's valid
-// const a = require(`./Anomalies-${clientId}.json`)
-// console.log(a)
+// test delete
+api.deleteModel(modelId1);
+// test deleted id
+console.log(api.detect("anomaly_flight.csv", modelId1));
+// try deleting invalid is
+api.deleteModel(190);
+

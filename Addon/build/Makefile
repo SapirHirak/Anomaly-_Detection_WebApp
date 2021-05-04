@@ -303,13 +303,13 @@ $(obj).$(TOOLSET)/%.o: $(obj)/%.S FORCE_DO_CMD
 
 ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
     $(findstring $(join ^,$(prefix)),\
-                 $(join ^,learnNormal.target.mk)))),)
-  include learnNormal.target.mk
+                 $(join ^,API.target.mk)))),)
+  include API.target.mk
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
 cmd_regen_makefile = cd $(srcdir); /usr/local/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/root/.cache/node-gyp/10.19.0" "-Dnode_gyp_dir=/usr/local/lib/node_modules/node-gyp" "-Dnode_lib_file=/root/.cache/node-gyp/10.19.0/<(target_arch)/node.lib" "-Dmodule_root_dir=/mnt/c/Users/Ariel/Documents/AP2/Ex2/Anomaly-_Detection_WebApp/Addon" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/mnt/c/Users/Ariel/Documents/AP2/Ex2/Anomaly-_Detection_WebApp/Addon/build/config.gypi -I/usr/local/lib/node_modules/node-gyp/addon.gypi -I/root/.cache/node-gyp/10.19.0/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/../../../../../../../../../root/.cache/node-gyp/10.19.0/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/../../../../../../../../../usr/local/lib/node_modules/node-gyp/addon.gypi $(srcdir)/binding.gyp
+Makefile: $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/../../../../../../../../../usr/local/lib/node_modules/node-gyp/addon.gypi $(srcdir)/../../../../../../../../../root/.cache/node-gyp/10.19.0/include/node/common.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

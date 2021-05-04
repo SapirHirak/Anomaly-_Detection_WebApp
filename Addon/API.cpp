@@ -2,10 +2,12 @@
 #include <iostream>
 #include "timeseries.cpp"
 #include "SimpleAnomalyDetector.cpp"
+#include "HybridAnomalyDetector.cpp"
 #include "anomaly_detection_util.cpp"
 #include "minCircle.cpp"
 #include <node.h>
 #include <sstream>
+#include <map>
  
 namespace learnNormal {
     using v8::Context;
@@ -22,11 +24,24 @@ namespace learnNormal {
     using v8::Array;
     using v8::Exception;
 
-    SimpleAnomalyDetector sad;
+    std::map<int, SimpleAnomalyDetector> anomalyDetectorMap;
 
     void Learn(const FunctionCallbackInfo<Value>&args) {
-        TimeSeries tsTrain(*v8::String::Utf8Value(args[0])); 
+        TimeSeries tsTrain(*v8::String::Utf8Value(args[0]));
+        SimpleAnomalyDetector* sa;
+        SimpleAnomalyDetector sad;
+        HybridAnomalyDetector had;
+        string detectorType = *v8::String::Utf8Value(args[2]);
+        if (detectorType == "regression") {
+            sa = &sad;
+        }
+        else if (detectorType == "hybrid") {
+            sa = &had;
+        }
+        else return;
 	    sad.learnNormal(tsTrain);
+        int modelID = args[1]->Int32Value();
+        anomalyDetectorMap.insert({modelID, sad});
     }
 
 
@@ -98,7 +113,14 @@ namespace learnNormal {
     void Detect(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
 	    TimeSeries tsTest(*v8::String::Utf8Value(args[0]));
-	    std::vector<AnomalyReport> anomalyReportVec = sad.detect(tsTest);
+        int modelID = args[1]->Int32Value();
+        if (anomalyDetectorMap.find(modelID) == anomalyDetectorMap.end()) {
+            std::cout << modelID << " is an invalid model ID" << std::endl;
+            // args.GetReturnValue().Set(String::NewFromUtf8(isolate, "{}")); ///// not sure if should return empty json or nothing
+            return;
+        }
+        SimpleAnomalyDetector ad = anomalyDetectorMap.find(modelID)->second;
+	    std::vector<AnomalyReport> anomalyReportVec = ad.detect(tsTest);
         vector<ContinuousAnomalies> continuousAnomalies = ContinuousAnomalies::findContinuousAnomalies(anomalyReportVec);
 
         string str = "{\n";
@@ -106,16 +128,26 @@ namespace learnNormal {
                 str += "\"Anonamly_" + to_string(i) + "\": {\n\"Description\":\"" + continuousAnomalies[i].description 
                 + "\",\n\"start\":" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
                 + "\"end\":" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
-                (i == continuousAnomalies.size() - 1) ? str += "}\n}" : str += "},\n";
+                (i == continuousAnomalies.size() - 1) ? str += "}\n" : str += "},\n";
 	    	}
+        str += "}";
         args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str()));
     }
 
+    void DeleteModel(const FunctionCallbackInfo<Value>&args) {
+        int modelID = args[0]->Int32Value();
+        if (anomalyDetectorMap.find(modelID) != anomalyDetectorMap.end()) {
+            anomalyDetectorMap.erase(modelID);
+            std::cout << modelID << " deleted" << std::endl;
+        }
+        else std::cout << modelID << " doesn't exist on current database" << std::endl;
+    }
 
 
     void Initialize(Local<Object> exports) {
-        NODE_SET_METHOD(exports, "learnN", Learn);
+        NODE_SET_METHOD(exports, "learn", Learn);
         NODE_SET_METHOD(exports, "detect", Detect);
+        NODE_SET_METHOD(exports, "deleteModel", DeleteModel);
     }
 
     NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize);
