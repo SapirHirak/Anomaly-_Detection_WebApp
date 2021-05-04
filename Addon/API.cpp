@@ -136,7 +136,7 @@ namespace learnNormal {
 
 
     void Initialize(Local<Object> exports) {
-        NODE_SET_METHOD(exports, "learnN", Learn);
+        NODE_SET_METHOD(exports, "learn", Learn);
         NODE_SET_METHOD(exports, "detect", Detect);
     }
 

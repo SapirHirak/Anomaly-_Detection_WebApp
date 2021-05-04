@@ -13,8 +13,8 @@
     # ],
   "targets": [
     {
-      "target_name": "learnNormal",
-      "sources": [ "./learnNormal.cpp" ]
+      "target_name": "API",
+      "sources": [ "./API.cpp" ]
     }
   ]
 }
