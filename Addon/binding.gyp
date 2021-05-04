@@ -8,9 +8,9 @@
     "AnomalyDetector.h",
     "anomaly_detection_util.h",
     ],
-    "include_dirs": [
-      "<!(node -e \"require('nan')\")"
-    ],
+    # "include_dirs": [
+    #   "<!(node -e \"require('nan')\")"
+    # ],
   "targets": [
     {
       "target_name": "learnNormal",
