@@ -1,4 +1,4 @@
-const { Link } = require("@material-ui/core");
+import './App.css';
 
 function Search() {
 
@@ -9,16 +9,11 @@ function Search() {
     }*/
 
     return (
-        <form action="/" method="get">
-            <label htmlFor="header-search">
-            </label>
-            <input
-            type="text"
-            id="header-search"
-            placeholder="Search for model"
-            />
-            <button type="submit">search</button>
-        </form>
+
+        <div className="searchDiv">
+            Im Search
+            <input />
+        </div>
     )
 }
 

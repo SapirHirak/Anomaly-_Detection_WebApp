@@ -3,7 +3,8 @@ import './App.css';
 import Graph from './Graph';
 import Search from './Search';
 // import TableApp from './TableApp';
-import DragDrop from './DragDrop';
+import DragDropLearn from './DragDropLearn';
+import DragDropAnomaly from './DragDropAnomaly';
 import DragAndDrop from './DragAndDrop';
 import StickyHeadTable from './StickyHeadTable';
 // import reactDom from 'react-dom';
@@ -17,12 +18,13 @@ function App() {
    ]);*/
   return (
     <div className="App">
-      <h1>Welcome to Anomaly Detection Webapp! </h1>
-      <DragDrop />
-      <Search />
+      <div className="mainTitle">Welcome to Anomaly Detection Webapp! </div>
+      <DragDropLearn />
+      <DragDropAnomaly />
       <Graph />
+      <Search />
       <StickyHeadTable />
-        hellooooo
+
 
     </div>
   );
