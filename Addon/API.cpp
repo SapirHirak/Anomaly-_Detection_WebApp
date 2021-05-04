@@ -116,6 +116,7 @@ namespace learnNormal {
         int modelID = args[1]->Int32Value();
         if (anomalyDetectorMap.find(modelID) == anomalyDetectorMap.end()) {
             std::cout << modelID << " is an invalid model ID" << std::endl;
+            // args.GetReturnValue().Set(String::NewFromUtf8(isolate, "{}")); ///// not sure if should return empty json or nothing
             return;
         }
         SimpleAnomalyDetector ad = anomalyDetectorMap.find(modelID)->second;
@@ -139,7 +140,7 @@ namespace learnNormal {
             anomalyDetectorMap.erase(modelID);
             std::cout << modelID << " deleted" << std::endl;
         }
-        else std::cout << modelID << " doesn't exist" << std::endl;
+        else std::cout << modelID << " doesn't exist on current database" << std::endl;
     }
 
 
