@@ -19,10 +19,10 @@ function App() {
     <div className="App">
       <h1>Welcome to Anomaly Detection Webapp! </h1>
       <DragDrop />
+      <Search />
       <Graph />
       <StickyHeadTable />
         hellooooo
-      <Search />
 
     </div>
   );
