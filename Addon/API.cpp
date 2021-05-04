@@ -133,11 +133,20 @@ namespace learnNormal {
         args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str()));
     }
 
+    void DeleteModel(const FunctionCallbackInfo<Value>&args) {
+        int modelID = args[0]->Int32Value();
+        if (anomalyDetectorMap.find(modelID) != anomalyDetectorMap.end()) {
+            anomalyDetectorMap.erase(modelID);
+            std::cout << modelID << " deleted" << std::endl;
+        }
+        else std::cout << modelID << " doesn't exist" << std::endl;
+    }
 
 
     void Initialize(Local<Object> exports) {
         NODE_SET_METHOD(exports, "learn", Learn);
         NODE_SET_METHOD(exports, "detect", Detect);
+        NODE_SET_METHOD(exports, "deleteModel", DeleteModel);
     }
 
     NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize);
