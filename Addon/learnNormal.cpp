@@ -27,29 +27,88 @@ namespace learnNormal {
     void Learn(const FunctionCallbackInfo<Value>&args) {
         TimeSeries tsTrain(*v8::String::Utf8Value(args[0])); 
 	    sad.learnNormal(tsTrain);
-        args.GetReturnValue().Set(args[1]->NumberValue());;
     }
 
-    void Detect(const FunctionCallbackInfo<Value>&args) {
 
+    //checks if the two ranges overlap at any point
+	bool containsOverlap(float a, float b, float x, float y) {
+		//if a-b is before/in x-y
+		if (a <= x && b <= y && b >= x)
+			return true;
+		//if x-y is before/in a-b
+		if (x <= a && y <= b && y >= a)
+			return true;
+		//if one is fully inside the other
+		if ((x <= a && y >= b) || (a <= x && b >= y))
+			return true;
+		return false;
+	}
+
+
+
+
+    // a way to save the range of anomalies
+    class ContinuousAnomalies {
+    public:
+    	const string description;
+    	const long firstTimeStep;
+    	const long lastTimeStep;
+    	ContinuousAnomalies(string description, long firstTimeStep, long lastTimeStep):
+    			description(description),firstTimeStep(firstTimeStep),lastTimeStep(lastTimeStep){}
+
+    	// recieves vector of AnomalyReports and if we have sequential anomalies, we save the first and last position.
+    	static vector<ContinuousAnomalies> findContinuousAnomalies(vector<AnomalyReport> ars) {
+    		vector<ContinuousAnomalies> continuousAnomalies;
+    		bool first = true;
+    		string currentDescription;
+    		long firstTS;
+    		long lastTS;
+    		for (AnomalyReport ar: ars) {
+    			//first time we go in we initialize
+    			if (first) {
+    				currentDescription = ar.description;
+    				firstTS = ar.timeStep;
+    				lastTS = firstTS;
+    				first = false;
+    			} else {
+    				//if we're in the same cf, check if the time step is continuous
+    				if (ar.description == currentDescription) {
+    					if (ar.timeStep != lastTS + 1) {
+    						continuousAnomalies.push_back(ContinuousAnomalies(currentDescription, firstTS, lastTS));
+    						firstTS = ar.timeStep;
+    					}
+    					lastTS = ar.timeStep;
+    				} else {
+    					//if the descriptions don't match
+    					continuousAnomalies.push_back(ContinuousAnomalies(currentDescription, firstTS, lastTS));
+    					firstTS = ar.timeStep;
+    					lastTS = firstTS;
+    					currentDescription = ar.description;
+    				}
+    			}
+    		}
+    		//pushes the final anomaly
+    		continuousAnomalies.push_back(ContinuousAnomalies(currentDescription, firstTS, lastTS));
+    		return continuousAnomalies;
+    	}
+    };
+
+
+
+    void Detect(const FunctionCallbackInfo<Value>&args) {
+        Isolate* isolate = args.GetIsolate();
 	    TimeSeries tsTest(*v8::String::Utf8Value(args[0]));
 	    std::vector<AnomalyReport> anomalyReportVec = sad.detect(tsTest);
+        vector<ContinuousAnomalies> continuousAnomalies = ContinuousAnomalies::findContinuousAnomalies(anomalyReportVec);
 
-	    ofstream file("Anomalies-" + to_string((int)args[1]->NumberValue()) + ".json");
-	    if (file.is_open()) {
-            file << "{" << std::endl;
-	    	for (int i = 0; i < anomalyReportVec.size(); i++) {
-
-	    		file << "\"Anonamly" << i << "\": {" << std::endl << "\"Description\":\"" << 
-                anomalyReportVec[i].description << "\"," << std::endl 
-                << "\"timestep\":" << anomalyReportVec[i].timeStep;
-                    (i == anomalyReportVec.size() - 1) ? file << std::endl << "}" << std::endl : file << std::endl << "}," << std::endl;
-
+        string str = "{\n";
+	    	for (int i = 0; i < continuousAnomalies.size(); i++) {
+                str += "\"Anonamly_" + to_string(i) + "\": {\n\"Description\":\"" + continuousAnomalies[i].description 
+                + "\",\n\"start\":" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
+                + "\"end\":" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
+                (i == continuousAnomalies.size() - 1) ? str += "}\n}" : str += "},\n";
 	    	}
-            file << "}" << std::endl;
-	    	file.close();
-	    }
-        args.GetReturnValue().Set(args[1]->NumberValue());
+        args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str()));
     }
 
 
