@@ -1,3 +1,5 @@
+import './App.css';
+
 function Search() {
 
     /*function handleEnter(event) {
@@ -8,8 +10,9 @@ function Search() {
 
     return (
 
-        <div>
+        <div className="searchDiv">
             Im Search
+            <input />
         </div>
     )
 }

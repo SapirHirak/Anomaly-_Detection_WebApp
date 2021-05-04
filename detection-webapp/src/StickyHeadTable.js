@@ -78,7 +78,7 @@ export default function StickyHeadTable() {
     return (
         // <Paper className={classes.root}>
         <div calssName="tableCss">
-            <TableContainer calssName="tableCss" className={classes.container}>
+            <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>

@@ -7,6 +7,35 @@ body {
     width: 50%;
 }
 
-.dragDrop {
-    width: 50%;
+.dragDropLearn {
+    margin-top: 1%;
+    margin-left: 10%;
+    margin-bottom: 1%;
+    width: 30%;
+    border: 3px solid rgb(28, 0, 41);
+    padding: 10px;
+}
+
+.dragDropAnomaly {
+    margin-left: 50%;
+    margin-bottom: 1%;
+    width: 30%;
+    border: 3px solid rgb(28, 0, 41);
+    padding: 10px;
+}
+
+.greatTitle {
+    margin-left: 50%;
+    margin-bottom: 1%;
+    width: 30%;
+    padding: 10px;
+}
+
+.searchDiv {}
+
+.mainTitle {
+    font: 40px italic;
+    padding: 10px;
+    margin: auto;
+    padding: 10px;
 }
