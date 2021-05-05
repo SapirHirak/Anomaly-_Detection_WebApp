@@ -3,6 +3,10 @@ const express = require('express');
 // express app
 const server = express();
 
+// register view engine
+server.set('view engine', 'ejs');
+// server.set('views', 'backend') // if not in the same directory
+
 // listen to requests
 server.listen(9876);
 
@@ -12,16 +16,24 @@ server.listen(9876);
  **************/
 server.get('/', (req, res) => { // root domain listen
     //res.send('<p>home page</p>');
+    const models = [
+        {title: 'Aviv Spongebob', snippet: 'aba'},
+        {title: 'Ariel Squidward', snippet: 'gamal'},
+        {title: 'Sapir Ms.Puff', snippet: 'shoter'},
+    ];
     // sends the client an html file
-    res.sendFile('/index.html', {root: __dirname});
+    res.render('index', { title: 'Home' , models });
+    // res.sendFile('/index.html', {root: __dirname});
 });
 
 server.get('/api', (req, res) => {
     //res.send('<p>api page</p>');
+    res.render('api', { title: 'API' });
 });
 
 server.get('/api/model', (req, res) => {
     //res.send('<p>model page</p>');
+    res.render('model', { title: 'upload a new model' });
 });
 
 // redirects
@@ -32,7 +44,8 @@ server.get('/api-us', (req, res) => {
 // 404 page
 // because it has no url it goes for EVERY url (happens only if there was no match above)
 server.use((req, res) => {
-    res.status(404).sendFile('/404.html', {root: __dirname});
+    // res.status(404).sendFile('/404.html', {root: __dirname});
+    res.status(404).render('404', { title: '404' });
 });
 
 
