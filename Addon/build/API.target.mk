@@ -36,13 +36,13 @@ CFLAGS_CC_Debug := \
 	-std=gnu++1y
 
 INCS_Debug := \
-	-I/root/.cache/node-gyp/10.19.0/include/node \
-	-I/root/.cache/node-gyp/10.19.0/src \
-	-I/root/.cache/node-gyp/10.19.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/10.19.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/10.19.0/deps/uv/include \
-	-I/root/.cache/node-gyp/10.19.0/deps/zlib \
-	-I/root/.cache/node-gyp/10.19.0/deps/v8/include
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/openssl/config \
+	-I/usr/include/nodejs/deps/openssl/openssl/include \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/zlib \
+	-I/usr/include/nodejs/deps/v8/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=API' \
@@ -75,13 +75,13 @@ CFLAGS_CC_Release := \
 	-std=gnu++1y
 
 INCS_Release := \
-	-I/root/.cache/node-gyp/10.19.0/include/node \
-	-I/root/.cache/node-gyp/10.19.0/src \
-	-I/root/.cache/node-gyp/10.19.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/10.19.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/10.19.0/deps/uv/include \
-	-I/root/.cache/node-gyp/10.19.0/deps/zlib \
-	-I/root/.cache/node-gyp/10.19.0/deps/v8/include
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/openssl/config \
+	-I/usr/include/nodejs/deps/openssl/openssl/include \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/zlib \
+	-I/usr/include/nodejs/deps/v8/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/API.o
@@ -120,7 +120,8 @@ LDFLAGS_Release := \
 	-rdynamic \
 	-m64
 
-LIBS :=
+LIBS := \
+	-lnode
 
 $(obj).target/API.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/API.node: LIBS := $(LIBS)
