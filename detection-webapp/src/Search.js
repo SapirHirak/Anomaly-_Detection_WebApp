@@ -1,19 +1,20 @@
-import './App.css';
+function Search({ title, addItem }) {
 
-function Search() {
-
-    /*function handleEnter(event) {
+    function handleEnter(event) {
         if (event.code === 'Enter') {
-            addItem(event.target.value);
+            //filterr addItem(event.target.value);
         }
-    }*/
+    }
 
     return (
 
-        <div className="searchDiv">
-            Im Search
-            <input />
-        </div>
+        <header className="header">
+            <h1>{title}</h1>
+            <input className="new-todo"
+                onKeyDown={handleEnter}
+                placeholder="Search file by name"
+                autoFocus />
+        </header>
     )
 }
 
