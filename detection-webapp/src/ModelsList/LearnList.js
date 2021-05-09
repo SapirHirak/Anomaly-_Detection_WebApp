@@ -88,8 +88,8 @@ function LearnList({ learnFiles, removeItem }) {
                 <input className="toggle-all"
                     type="checkbox" />
                 <ul className="todo-list">
-                    {learnFiles.map(item => (
-                        <li>
+                    {learnFiles.map((item, index) => (
+                        <li key={index}>
                             <div className="view">
                                 <input className="toggle"
 
@@ -97,10 +97,15 @@ function LearnList({ learnFiles, removeItem }) {
                                 <label>{item.fileName}</label>
                                 <button onClick={removeItem} className="destroy" />
                             </div>
-                            <input class="edit" />
+                            <input className="edit" />
                         </li>
                     ))} </ul>
             </section>
+            <footer className="footer">
+                <span className="todo-count"><strong>0</strong> items found</span>
+                <button className="clear-completed">Clear completed
+    </button>
+            </footer>
 
         </div>
     )

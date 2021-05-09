@@ -1,17 +1,17 @@
-function Search({ title, addItem }) {
+function Search({ searchFilterEvent }) {
 
     function handleEnter(event) {
         if (event.code === 'Enter') {
             //filterr addItem(event.target.value);
+            searchFilterEvent(event.target.value);
         }
     }
 
     return (
 
         <header className="header">
-            <h1>{title}</h1>
             <input className="new-todo"
-                onKeyDown={handleEnter}
+                onChange={(e) => searchFilterEvent(e.target.value)}
                 placeholder="Search file by name"
                 autoFocus />
         </header>
