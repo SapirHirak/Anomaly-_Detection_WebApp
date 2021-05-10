@@ -100,6 +100,7 @@ function Basic(props) {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
         axios.post("http://localhost:1234/uploadLearn", data)
+        // axios.post("http://localhost:1234/uploadDetect", data)
         // axios.get("http://localhost:1234/api/model")
     }
 
