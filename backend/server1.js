@@ -1,9 +1,9 @@
 ///////// nodemon
 
 const express = require('express')
-// const cors = require('cors')
+const cors = require('cors')
 const bodyParser = require('body-parser');
-const fileUpload = require('ex')
+const fileUpload = require('express-fileupload')
 const app = express()
 
 let arr = []
@@ -11,10 +11,10 @@ let counter = 0
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(fileUpload());
-/// app.use(cors())
+app.use(cors())
 
 app.get("/api/model", function (req, res) {
-    res.status(200).json({ result: req.params.id })
+    res.status(200).json({ result: "Hello world" })
 })
 
 app.post("/api/model", function (req, res) {
@@ -24,18 +24,36 @@ app.post("/api/model", function (req, res) {
     // res.status(404).json({ id: 1, username: "liranal" })
 })
 
-app.post('/upload', (req, res, next) => {
-    console.log(req);
+app.post('/uploadLearn', (req, res, next) => {
+    console.log(req.files.file);
     let file = req.files.file;
 
-    file.mv(`${__dirname}/public/${req.body.filename}.csv`, function (err) {
+    csvData = file.data.toString('utf8');
+    console.log(csvData)
+    file.mv(`${__dirname}/temp/${file.name}`, function (err) {
         if (err) {
             return res.status(500).send(err);
         }
 
-        res.json({ file: `public/${req.body.filename}.csv` });
+        res.json({ file: `temp/${file.name}` });
     });
 
 })
 
-app.listen(9876, () => console.log(`Running server on port 9876`))
+app.post('/uploadDetect', (req, res, next) => {
+    console.log(req.files.file);
+    let file = req.files.file;
+
+    csvData = file.data.toString('utf8');
+    console.log(csvData)
+    file.mv(`${__dirname}/temp/${file.name}`, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json({ file: `temp/${file.name}` });
+    });
+
+})
+
+app.listen(1234, () => console.log(`Running server on port 1234`))

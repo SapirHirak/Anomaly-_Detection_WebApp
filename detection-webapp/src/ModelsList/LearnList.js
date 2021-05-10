@@ -104,9 +104,7 @@ function LearnList({ learnFiles, removeLearn }) {
                     ))} </ul>
             </section>
             <footer className="footer">
-                <span className="todo-count"><strong>0</strong> items found</span>
-                <button className="clear-completed">Clear completed
-    </button>
+
             </footer>
 
         </div>

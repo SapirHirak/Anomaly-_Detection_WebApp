@@ -10,7 +10,7 @@ import LearnList from './ModelsList/LearnList';
 import StickyHeadTable from './StickyHeadTable';
 import reactDom from 'react-dom';
 import TableAnomaly from './TableAnomaly';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 function App() {
@@ -38,13 +38,15 @@ function App() {
     { id: 3, fileName: "file 3" }
   ]);
 
+  /*useEffect(() => {
+  },[])*/
+
   function addNewLearn(itemTitle) {
     setLearnFile([...learnFiles, { id: 4, fileName: itemTitle }]);
   }
 
   function removeLearn(itemId) {
     const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
-
     setLearnFile(updateItems);
   }
 
@@ -62,12 +64,14 @@ function App() {
     <div className="App">
       <div className="mainTitle">Welcome to Anomaly Detection Webapp! </div>
       <DragDropLearn />
-      <DragDropAnomaly />
-      <Graph />
+      <h6>or choose from your models list:</h6>
       <section className="todoapp">
         <Search searchFilterEvent={searchFilterEvent} />
         <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} />
       </section>
+      <DragDropAnomaly />
+      <Graph anomalies={anomalies} />
+
       {/* <TableAnomaly /> */}
       <StickyHeadTable anomalies={anomalies} />
 

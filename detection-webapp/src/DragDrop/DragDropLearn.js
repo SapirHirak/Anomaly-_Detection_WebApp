@@ -96,15 +96,18 @@ function Basic(props) {
     }, [acceptedFiles])
 
     //upload files to server
-    async function uploadFiles() {
+    function uploadFiles() {
         const data = new FormData()
-        data.append("file", acceptedFiles)
-        await axios.post("http://localhost:9876/uploadLearn", data, files)
+        data.append("file", acceptedFiles[0])
+        axios.post("http://localhost:1234/uploadLearn", data)
+        // axios.get("http://localhost:1234/api/model")
     }
 
     return (
         <div>
+            <div>First, please enter your Learn csv file.</div>
             <section className="container dragDropLearn">
+
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
                     <p>Drag 'n' drop some files here, or click to select files</p>
@@ -116,13 +119,11 @@ function Basic(props) {
                 <Button onClick={uploadFiles}
                     variant="contained"
                     color="default"
-
                     startIcon={<CloudUploadIcon />}
                 >
                     Upload
                 </Button>
             </section>
-            <input type="file"></input>
         </div>
     );
 }

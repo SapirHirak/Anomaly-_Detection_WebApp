@@ -94,15 +94,18 @@ function Basic(props) {
     }, [acceptedFiles])
 
     //upload files to server
-    async function uploadFiles() {
+    function uploadFiles() {
         const data = new FormData()
-        data.append("file", acceptedFiles)
-        await axios.post("http://localhost:9876/uploadAnomaly", data, files)
+        data.append("file", acceptedFiles[0])
+        axios.post("http://localhost:1234/uploadDetect", data)
+        // axios.get("http://localhost:1234/api/model")
     }
 
     return (
         <div>
+            <div className="greatTitle">Great! now, add your anomaly csv file.</div>
             <section className="container dragDropAnomaly">
+
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
                     <p>Drag 'n' drop some files here, or click to select files</p>
@@ -120,7 +123,6 @@ function Basic(props) {
                     Upload
                 </Button>
             </section>
-            <input type="file"></input>
         </div>
     );
 }
