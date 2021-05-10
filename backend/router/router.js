@@ -1,8 +1,8 @@
-/*const express = require('express')
+const express = require('express')
 const router = express.Router()
 const Client = require('../clientSchema')
 
-router.get('/clinets', (req, res) => {
+router.get('/api/model', (req, res) => {
     Client.find({}).exec(function (err, response) {
         res.send(response)
 
@@ -39,4 +39,4 @@ router.put('/update', (req, res) => {
 })
 
 
-module.exports = router*/
+module.exports = router
