@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const Model = require('../detection-webapp/src/ModelsList/Search');
 
 // express app
@@ -31,8 +32,16 @@ app.get('/', (req, res) => { // root domain listen
 });
 
 app.post('/uploadLearn', (req, res) => {
-    const model = new model(req.body);
-    model.
+    console.log(req);
+    let file = req.files.file;
+
+    file.mv(`${__dirname}/public/${req.body.filename}.csv`, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json({ file: `public/${req.body.filename}.csv` });
+    });
 });
 
 app.get('/api', (req, res) => {
