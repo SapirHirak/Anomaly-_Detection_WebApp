@@ -7,12 +7,13 @@ function Search({ searchFilterEvent }) {
         }
     }
 
+
     return (
 
         <header className="header">
             <input className="new-todo"
                 onChange={(e) => searchFilterEvent(e.target.value)}
-                placeholder="Search file by name"
+                placeholder="Search model by name"
                 autoFocus />
         </header>
     )
