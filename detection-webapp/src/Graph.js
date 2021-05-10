@@ -49,13 +49,8 @@ const data = [
 
 
 
-function Graph() {
+function Graph({ anomalies }) {
 
-    /*function handleEnter(event) {
-        if (event.code === 'Enter') {
-            addItem(event.target.value);
-        }
-    }*/
 
     return (
 
