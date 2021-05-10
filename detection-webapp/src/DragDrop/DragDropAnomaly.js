@@ -10,7 +10,7 @@ import SaveIcon from '@material-ui/icons/Save';
 
 import '../App.css';
 
-const useStyles = makeStyles((theme) => ({
+/*const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
     },
@@ -75,4 +75,56 @@ function Accept(props) {
 
 <Accept />
 
-export default Accept;
+export default Accept;*/
+
+import axios from "axios"
+import { useEffect } from 'react';
+
+function Basic(props) {
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+
+    const files = acceptedFiles.map(file => (
+        <li key={file.path}>
+            {file.path} - {file.size} bytes
+        </li>
+    ));
+
+    useEffect(() => {
+        console.log(acceptedFiles)
+    }, [acceptedFiles])
+
+    //upload files to server
+    async function uploadFiles() {
+        const data = new FormData()
+        data.append("file", acceptedFiles)
+        await axios.post("http://localhost:9876/uploadAnomaly", data, files)
+    }
+
+    return (
+        <div>
+            <section className="container dragDropAnomaly">
+                <div {...getRootProps({ className: 'dropzone' })}>
+                    <input {...getInputProps()} />
+                    <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+                <aside>
+                    <h4>Files</h4>
+                    <ul>{files}</ul>
+                </aside>
+                <Button onClick={uploadFiles}
+                    variant="contained"
+                    color="default"
+
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Upload
+                </Button>
+            </section>
+            <input type="file"></input>
+        </div>
+    );
+}
+
+<Basic />
+
+export default Basic;

@@ -79,8 +79,10 @@ export default function InteractiveList() {
     );
 }*/
 
-function LearnList({ learnFiles, removeItem }) {
-
+function LearnList({ learnFiles, removeLearn }) {
+    function handleRemove(itemId) {
+        removeLearn(itemId)
+    }
 
     return (
         <div>
@@ -95,7 +97,7 @@ function LearnList({ learnFiles, removeItem }) {
 
                                     type="checkbox" />
                                 <label>{item.fileName}</label>
-                                <button onClick={removeItem} className="destroy" />
+                                <button onClick={() => handleRemove(item.id)} className="destroy" />
                             </div>
                             <input className="edit" />
                         </li>

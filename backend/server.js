@@ -21,12 +21,12 @@ app.listen(port, () => console.log(`Running server on port ${port}`))
 app.get('/', (req, res) => { // root domain listen
     //res.send('<p>home page</p>');
     // const models = [
-    //     {title: 'Aviv Spongebob', snippet: 'aba'},
-    //     {title: 'Ariel Squidward', snippet: 'gamal'},
-    //     {title: 'Sapir Ms.Puff', snippet: 'shoter'},
+    //     { title: 'Aviv Spongebob', snippet: 'aba' },
+    //     { title: 'Ariel Squidward', snippet: 'gamal' },
+    //     { title: 'Sapir Ms.Puff', snippet: 'shoter' },
     // ];
     // sends the client an html file
-    res.render('index', { title: 'Home' , models });
+    res.render('index', { title: 'Home', models });
     // res.sendFile('/index.html', {root: __dirname});
 });
 
