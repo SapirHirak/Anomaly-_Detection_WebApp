@@ -185,35 +185,40 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables({ anomalies }) {
     const classes = useStyles();
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                        <StyledTableCell align="right">Calories</StyledTableCell>
-                        <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                        <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                            <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                            <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                            <StyledTableCell align="right">{row.protein}</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="tableCss">
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead color="red">
+                        <TableRow>
+                            <StyledTableCell>Correlative Features</StyledTableCell>
+                            <StyledTableCell align="right">Id</StyledTableCell>
+                            <StyledTableCell align="right">From Line</StyledTableCell>
+                            <StyledTableCell align="right">Until Line</StyledTableCell>
+                            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {Object.keys(anomalies[0]).map((row, index) => {
+                            console.log(row)
+                            return (
+                                <StyledTableRow key={index}>
+                                    <StyledTableCell component="th" scope="row">
+                                        {anomalies[0][row].Description}
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">{row}</StyledTableCell>
+                                    <StyledTableCell align="right">{anomalies[0][row].start}</StyledTableCell>
+                                    <StyledTableCell align="right">{anomalies[0][row].end}</StyledTableCell>
+                                    <StyledTableCell align="right">hh</StyledTableCell>
+                                </StyledTableRow>
+                            )
+                        })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
     );
 }

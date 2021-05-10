@@ -14,19 +14,37 @@ import { useState } from "react";
 
 
 function App() {
+  const [anomalies, setAnomalies] = useState([
+    {
+      Anomaly_0: {
+        Description: "throttle-engine_rpm",
+        start: 224,
+        end: 1472
+      }, Anomaly_1: {
+        Description: "airspeed-kt-airspeed-indicator_indicated-speed-kt",
+        start: 504,
+        end: 700
+      }, Anomaly_2: {
+        Description: "slip-skid-ball_indicated-slip-skid-airspeed-indicator_indicated-speed-kt",
+        start: 554,
+        end: 614
+      }
+    }
+  ]);
+  const [filterredName, setfilterredName] = useState("")
   const [learnFiles, setLearnFile] = useState([
     { id: 1, fileName: "file 1" },
     { id: 2, fileName: "file 2" },
     { id: 3, fileName: "file 3" }
   ]);
-  const [filterredName, setfilterredName] = useState("")
 
   function addNewLearn(itemTitle) {
     setLearnFile([...learnFiles, { id: 4, fileName: itemTitle }]);
   }
 
-  function removeLearn(item) {
-    const updateItems = learnFiles.filter(currentItem => item.title === currentItem.title)
+  function removeLearn(itemId) {
+    const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
+
     setLearnFile(updateItems);
   }
 
@@ -51,7 +69,7 @@ function App() {
         <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} />
       </section>
       {/* <TableAnomaly /> */}
-      <StickyHeadTable></StickyHeadTable>
+      <StickyHeadTable anomalies={anomalies} />
 
 
     </div>
