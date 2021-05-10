@@ -110,6 +110,7 @@ namespace learnNormal {
 
 
 
+
     void Detect(const FunctionCallbackInfo<Value>&args) {
         Isolate* isolate = args.GetIsolate();
 	    TimeSeries tsTest(*v8::String::Utf8Value(args[0]));
@@ -125,7 +126,7 @@ namespace learnNormal {
 
         string str = "{\n";
 	    	for (int i = 0; i < continuousAnomalies.size(); i++) {
-                str += "\"Anonamly_" + to_string(i) + "\": {\n\"Description\":\"" + continuousAnomalies[i].description 
+                str += "\"Anomaly_" + to_string(i) + "\": {\n\"Description\":\"" + continuousAnomalies[i].description 
                 + "\",\n\"start\":" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
                 + "\"end\":" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
                 (i == continuousAnomalies.size() - 1) ? str += "}\n" : str += "},\n";
@@ -134,6 +135,10 @@ namespace learnNormal {
         args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str()));
     }
 
+
+
+
+    // removes anomaly detector from map according to model id
     void DeleteModel(const FunctionCallbackInfo<Value>&args) {
         int modelID = args[0]->Int32Value();
         if (anomalyDetectorMap.find(modelID) != anomalyDetectorMap.end()) {
@@ -142,6 +147,9 @@ namespace learnNormal {
         }
         else std::cout << modelID << " doesn't exist on current database" << std::endl;
     }
+
+
+
 
 
     void Initialize(Local<Object> exports) {
