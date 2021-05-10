@@ -26,3 +26,4 @@ console.log(api.detect("anomaly_flight.csv", modelId1));
 // try deleting invalid is
 api.deleteModel(190);
 
+console.log(JSON.stringify(anomaliesJSON1))

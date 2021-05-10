@@ -1,1 +1,0 @@
-cmd_Release/learnNormal.node := ln -f "Release/obj.target/learnNormal.node" "Release/learnNormal.node" 2>/dev/null || (rm -rf "Release/learnNormal.node" && cp -af "Release/obj.target/learnNormal.node" "Release/learnNormal.node")
