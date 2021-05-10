@@ -1,17 +1,18 @@
 const express = require('express');
+const Model = require('../detection-webapp/src/ModelsList/Search');
 
 // express app
 const app = express();
 
 // register view engine
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 // server.set('views', 'backend') // if not in the same directory
 
 // sets the root file for express
 app.use(express.static('/views'));
-
 // listen to requests
-app.listen(9876);
+let port = 9876;
+app.listen(port, () => console.log(`Running server on port ${port}`))
 
 // get for every URL that we want to listen to
 /****************
@@ -19,14 +20,19 @@ app.listen(9876);
  **************/
 app.get('/', (req, res) => { // root domain listen
     //res.send('<p>home page</p>');
-    const models = [
-        {title: 'Aviv Spongebob', snippet: 'aba'},
-        {title: 'Ariel Squidward', snippet: 'gamal'},
-        {title: 'Sapir Ms.Puff', snippet: 'shoter'},
-    ];
+    // const models = [
+    //     {title: 'Aviv Spongebob', snippet: 'aba'},
+    //     {title: 'Ariel Squidward', snippet: 'gamal'},
+    //     {title: 'Sapir Ms.Puff', snippet: 'shoter'},
+    // ];
     // sends the client an html file
     res.render('index', { title: 'Home' , models });
     // res.sendFile('/index.html', {root: __dirname});
+});
+
+app.post('/uploadLearn', (req, res) => {
+    const model = new model(req.body);
+    model.
 });
 
 app.get('/api', (req, res) => {
