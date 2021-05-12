@@ -126,9 +126,9 @@ namespace learnNormal {
 
         string str = "{\n";
 	    	for (int i = 0; i < continuousAnomalies.size(); i++) {
-                str += "\"Anomaly_" + to_string(i) + "\": {\n\"Description\":\"" + continuousAnomalies[i].description 
-                + "\",\n\"start\":" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
-                + "\"end\":" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
+                str += "Anomaly_" + to_string(i) + ": {\nDescription:" + continuousAnomalies[i].description 
+                + "\",\nstart:" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
+                + "end:" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
                 (i == continuousAnomalies.size() - 1) ? str += "}\n" : str += "},\n";
 	    	}
         str += "}";
