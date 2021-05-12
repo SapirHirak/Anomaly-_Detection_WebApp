@@ -39,16 +39,24 @@ function App() {
     { id: 3, fileName: "file 3" }
   ]);
 
-  /*useEffect(() => {
-  },[])*/
+  useEffect(() => {
+    let currentLearnFiles = axios.get("http://localhost:1234/getModels")
+    setLearnFile([currentLearnFiles]);
+  }, [])
 
-  function addNewLearn(itemTitle) {
-    setLearnFile([...learnFiles, { id: 4, fileName: itemTitle }]);
+  async function addNewLearn(itemTitle) {
+    let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
+    setLearnFile([currentLearnFiles]);
+
   }
 
-  function removeLearn(itemId) {
-    const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
+  async function removeLearn(itemId) {
+    //const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
+    const updateItems = await axios.delete("http://localhost:1234/deleteModel", itemId)
+
     setLearnFile(updateItems);
+
+
   }
 
   //
@@ -61,15 +69,15 @@ function App() {
     return learnFiles.filter(file => file.fileName.includes(filterredName));
   }
 
-  function getAnomalies() {
-    let anomalies = axios.get("http://localhost:8080/getAnomaly")
+  async function getAnomalies() {
+    let anomalies = await axios.get("http://localhost:1234/getAnomaly")
     setAnomalies([anomalies])
   }
 
   return (
     <div className="App">
       <div className="mainTitle">Welcome to Anomaly Detection Webapp! </div>
-      <DragDropLearn />
+      <DragDropLearn addNewLearn={addNewLearn} />
       <h6>or choose from your models list:</h6>
       <section className="todoapp">
         <Search searchFilterEvent={searchFilterEvent} />

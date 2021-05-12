@@ -82,7 +82,7 @@ export default Accept;*/
 import axios from "axios"
 import { useEffect } from 'react';
 
-function Basic(props) {
+function Basic(props, { addNewLearn }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
     const files = acceptedFiles.map(file => (
@@ -96,12 +96,14 @@ function Basic(props) {
     }, [acceptedFiles])
 
     //upload files to server
-    function uploadFiles() {
+    async function uploadFiles() {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
-        axios.post("http://localhost:1234/uploadLearn", data)
+        await axios.post("http://localhost:1234/uploadLearn", data)
         // axios.post("http://localhost:1234/uploadDetect", data)
         // axios.get("http://localhost:1234/api/model")
+        addNewLearn()
+
     }
 
     return (

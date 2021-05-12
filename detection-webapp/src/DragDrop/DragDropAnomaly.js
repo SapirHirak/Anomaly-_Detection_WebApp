@@ -94,10 +94,10 @@ function Basic(props, { getAnomalies }) {
     }, [acceptedFiles])
 
     //upload files to server
-    function uploadDetectFile() {
+    async function uploadDetectFile() {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
-        axios.post("http://localhost:1234/uploadDetect", data)
+        await axios.post("http://localhost:1234/uploadDetect", data)
         // axios.get("http://localhost:1234/api/model")
         getAnomalies()
 
