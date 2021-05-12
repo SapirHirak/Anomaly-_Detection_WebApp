@@ -94,7 +94,7 @@ function Basic(props) {
     }, [acceptedFiles])
 
     //upload files to server
-    function uploadFiles() {
+    function uploadDetectFile() {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
         axios.post("http://localhost:1234/uploadDetect", data)
@@ -114,13 +114,14 @@ function Basic(props) {
                     <h4>Files</h4>
                     <ul>{files}</ul>
                 </aside>
-                <Button onClick={uploadFiles}
+                <Button onClick={uploadDetectFile}
                     variant="contained"
                     color="default"
 
-                    startIcon={<CloudUploadIcon />}
+
                 >
-                    Upload
+                    <i class="fas fa-plane-departure"></i>
+                    Fly!
                 </Button>
             </section>
         </div>
