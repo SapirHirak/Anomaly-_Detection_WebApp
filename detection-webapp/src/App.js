@@ -11,6 +11,7 @@ import StickyHeadTable from './StickyHeadTable';
 import reactDom from 'react-dom';
 import TableAnomaly from './TableAnomaly';
 import { useEffect, useState } from "react";
+import axios from "axios"
 
 
 function App() {
@@ -60,6 +61,11 @@ function App() {
     return learnFiles.filter(file => file.fileName.includes(filterredName));
   }
 
+  function getAnomalies() {
+    let anomalies = axios.get("http://localhost:8080/getAnomaly")
+    setAnomalies([anomalies])
+  }
+
   return (
     <div className="App">
       <div className="mainTitle">Welcome to Anomaly Detection Webapp! </div>
@@ -69,7 +75,7 @@ function App() {
         <Search searchFilterEvent={searchFilterEvent} />
         <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} />
       </section>
-      <DragDropAnomaly />
+      <DragDropAnomaly getAnomalies={getAnomalies} />
       <Graph anomalies={anomalies} />
 
       {/* <TableAnomaly /> */}

@@ -80,7 +80,7 @@ export default Accept;*/
 import axios from "axios"
 import { useEffect } from 'react';
 
-function Basic(props) {
+function Basic(props, { getAnomalies }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
     const files = acceptedFiles.map(file => (
@@ -99,6 +99,8 @@ function Basic(props) {
         data.append("file", acceptedFiles[0])
         axios.post("http://localhost:1234/uploadDetect", data)
         // axios.get("http://localhost:1234/api/model")
+        getAnomalies()
+
     }
 
     return (
