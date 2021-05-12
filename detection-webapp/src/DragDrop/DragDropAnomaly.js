@@ -80,7 +80,7 @@ export default Accept;*/
 import axios from "axios"
 import { useEffect } from 'react';
 
-function Basic(props, { getAnomalies }) {
+function Basic({ getAnomalies }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
     const files = acceptedFiles.map(file => (

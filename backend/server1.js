@@ -9,7 +9,8 @@ const api = require('../Addon/build/Release/API')
 
 let d = new Date();
 let id = 0;
-let models = new Map();
+// let models = new Map();
+let models = [];
 let lastAnomaly;
 // let arr = []
 // let counter = 0
@@ -39,7 +40,10 @@ app.post('/uploadLearn', (req, res, next) => {
         if (err) {
             return res.status(500).send(err);
         }
-        models.set(id, {name: file.name, id: id, time:
+        // models.set(id, {id: id, fileName: file.name, time:
+        //     d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" + 
+        //     d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"});
+        models.push({id: id, fileName: file.name, time:
             d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" + 
             d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"});
         api.learn(`${__dirname}/temp/${file.name}`, id++, "regression");
@@ -50,7 +54,7 @@ app.post('/uploadLearn', (req, res, next) => {
 app.post('/uploadDetect', (req, res, next) => {
     // console.log(req.files.file);
     let file = req.files.file;
-
+    let reqId = req.body.id
     csvData = file.data.toString('utf8');
     // console.log(csvData)
     file.mv(`${__dirname}/temp/${file.name}`, function (err) {
@@ -58,7 +62,7 @@ app.post('/uploadDetect', (req, res, next) => {
             return res.status(500).send(err);
         }
         
-        lastAnomaly = api.detect(`temp/${file.name}`, 0);
+        lastAnomaly = api.detect(`temp/${file.name}`, reqId);
         res.json({ file: `temp/${file.name}` });
     });
 })
@@ -73,7 +77,8 @@ app.get('/getModels', (req, res, next) => {
 
 app.delete('/deleteModel', (req, res, next) => {
    api.delete(req);
-   models.delete(req);
+   models = models.filter(currentItem => req !== currentItem.id);
+//    models.delete(req);
    return res.status(200);
 });
 

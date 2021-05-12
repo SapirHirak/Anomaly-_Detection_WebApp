@@ -16,37 +16,37 @@ import axios from "axios"
 
 function App() {
   const [anomalies, setAnomalies] = useState([
-    {
-      Anomaly_0: {
-        Description: "throttle-engine_rpm",
-        start: 224,
-        end: 1472
-      }, Anomaly_1: {
-        Description: "airspeed-kt-airspeed-indicator_indicated-speed-kt",
-        start: 504,
-        end: 700
-      }, Anomaly_2: {
-        Description: "slip-skid-ball_indicated-slip-skid-airspeed-indicator_indicated-speed-kt",
-        start: 554,
-        end: 614
-      }
-    }
+    // {
+    //   Anomaly_0: {
+    //     Description: "throttle-engine_rpm",
+    //     start: 224,
+    //     end: 1472
+    //   }, Anomaly_1: {
+    //     Description: "airspeed-kt-airspeed-indicator_indicated-speed-kt",
+    //     start: 504,
+    //     end: 700
+    //   }, Anomaly_2: {
+    //     Description: "slip-skid-ball_indicated-slip-skid-airspeed-indicator_indicated-speed-kt",
+    //     start: 554,
+    //     end: 614
+    //   }
+    // }
   ]);
   const [filterredName, setfilterredName] = useState("")
-  const [learnFiles, setLearnFile] = useState([
-    { id: 1, fileName: "file 1" },
-    { id: 2, fileName: "file 2" },
-    { id: 3, fileName: "file 3" }
-  ]);
+  const [learnFiles, setLearnFile] = useState([]);
 
-  useEffect(() => {
-    let currentLearnFiles = axios.get("http://localhost:1234/getModels")
-    setLearnFile([currentLearnFiles]);
-  }, [])
+  useEffect(() => { 
+    getLearnFiles();
+  },[])
 
-  async function addNewLearn(itemTitle) {
+  const getLearnFiles = async()=> {
     let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
-    setLearnFile([currentLearnFiles]);
+    setLearnFile(currentLearnFiles.data);
+  }
+
+   const addNewLearn  = async() =>{
+    let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
+    setLearnFile(currentLearnFiles.data);
 
   }
 
@@ -70,8 +70,8 @@ function App() {
   }
 
   async function getAnomalies() {
-    let anomalies = await axios.get("http://localhost:1234/getAnomaly")
-    setAnomalies([anomalies])
+    let anomalies = await axios.get(`http://localhost:1234/getAnomaly`)
+    setAnomalies(anomalies.data)
   }
 
   return (
@@ -80,8 +80,13 @@ function App() {
       <DragDropLearn addNewLearn={addNewLearn} />
       <h6>or choose from your models list:</h6>
       <section className="todoapp">
+      
         <Search searchFilterEvent={searchFilterEvent} />
+        {learnFiles.length === 0 ? 
+        <span>No Models</span>: 
         <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} />
+      }
+        
       </section>
       <DragDropAnomaly getAnomalies={getAnomalies} />
       <Graph anomalies={anomalies} />
