@@ -1,101 +1,64 @@
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const Model = require('../detection-webapp/src/ModelsList/Search');
 
-// express app
-const app = express();
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload')
+const app = express()
+const api = require('../Addon/build/Release/API')
 
-// register view engine
-// app.set('view engine', 'ejs');
-// server.set('views', 'backend') // if not in the same directory
+let d = new Date();
+let id = 0;
+let models = [];
+let lastAnomaly;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(fileUpload());
+app.use(cors())
 
-// sets the root file for express
-app.use(express.static('/views'));
-// listen to requests
-let port = 9876;
-app.listen(port, () => console.log(`Running server on port ${port}`))
-
-// get for every URL that we want to listen to
-/****************
- * need to put this in the main directory because of the paths
- **************/
-app.get('/', (req, res) => { // root domain listen
-    //res.send('<p>home page</p>');
-    // const models = [
-    //     { title: 'Aviv Spongebob', snippet: 'aba' },
-    //     { title: 'Ariel Squidward', snippet: 'gamal' },
-    //     { title: 'Sapir Ms.Puff', snippet: 'shoter' },
-    // ];
-    // sends the client an html file
-    res.render('index', { title: 'Home', models });
-    // res.sendFile('/index.html', {root: __dirname});
-});
-
-app.post('/uploadLearn', (req, res) => {
-    console.log(req);
+app.post('/uploadLearn', (req, res, next) => {
     let file = req.files.file;
+    let type = req.body.type;
 
-    file.mv(`${__dirname}/public/${req.body.filename}.csv`, function (err) {
+    csvData = file.data.toString('utf8');
+    file.mv(`${__dirname}/temp/${file.name}`, function (err) {
         if (err) {
             return res.status(500).send(err);
         }
-
-        res.json({ file: `public/${req.body.filename}.csv` });
+        models.push({id: id, fileName: file.name, type: type, time:
+            d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" + 
+            d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"});
+        api.learn(`${__dirname}/temp/${file.name}`, id++, type);
+        res.json({ file: `temp/${file.name}` });
     });
-});
-
-app.get('/api', (req, res) => {
-    //res.send('<p>api page</p>');
-    res.render('api', { title: 'API' });
-});
-
-app.get('/api/model', (req, res) => {
-    //res.send('<p>model page</p>');
-    res.render('model', { title: 'upload a new model' });
-});
-
-// redirects
-app.get('/api-us', (req, res) => {
-    res.redirect('/api');
-});
-
-// 404 page
-// because it has no url it goes for EVERY url (happens only if there was no match above)
-app.use((req, res) => {
-    // res.status(404).sendFile('/404.html', {root: __dirname});
-    res.status(404).render('404', { title: '404' });
-});
-
-
-// old stuff probably delete **********************************************
-/*//require('dotenv').config()
-
-const express = require('express')
-const app = express()
-const path = require('path')
-let port = 9876
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-let data = require('../data.json')
-
-const router = require('./router/router')
-
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
-
-    next()
 })
 
+app.post('/uploadDetect', (req, res, next) => {
+    let file = req.files.file;
+    let reqId = req.body.id;
+    csvData = file.data.toString('utf8');
+    file.mv(`${__dirname}/temp/${file.name}`, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        
+        lastAnomaly = api.detect(`temp/${file.name}`, reqId);
+        res.json({ file: `temp/${file.name}` });
+    });
+})
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.get('/getAnomaly', (req, res, next) => {
+    return res.send(lastAnomaly);
+})
 
-mongoose.connect('mongodb://localhost/CRM', { useNewUrlParser: true }).then(() => {
-    mongoose.set('useFindAndModify', false);
-    app.use('/', router)
+app.get('/getModels', (req, res, next) => {
+    return res.send(models);
+})
 
+app.delete('/deleteModel', (req, res, next) => {
+   api.delete(req.params.id);
+   models = models.filter(currentItem => req.params.id !== currentItem.id);
+   models.delete(req.params.id);
+   return res.status(200);
+});
 
-    app.listen(port, () => console.log(`Running server on port ${port}`))
-})*/
+app.listen(1234, () => console.log(`Running server on port 1234`))
