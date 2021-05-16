@@ -3,6 +3,7 @@
 # installs nodejs
 dpkg --configure -a
 apt install nodejs
+apt install npm
 
 # goes to each directory in the project and installs te needed packages
 cd detection-webapp
