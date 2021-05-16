@@ -47,11 +47,11 @@ app.post('/uploadDetect', (req, res, next) => {
 })
 
 app.get('/getAnomaly', (req, res, next) => {
-    return res.send(lastAnomaly);
+    return res.json(JSON.parse(lastAnomaly));
 })
 
 app.get('/getModels', (req, res, next) => {
-    return res.send(models);
+    return res.json(models);
 })
 
 app.delete('/deleteModel', (req, res, next) => {

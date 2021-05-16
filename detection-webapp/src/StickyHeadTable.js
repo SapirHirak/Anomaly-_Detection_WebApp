@@ -195,16 +195,16 @@ export default function CustomizedTables({ anomalies }) {
                     </TableHead>
                     <TableBody>
                         {
-                        anomalies.length !== 0 ? Object.keys(anomalies[0]).map((row, index) => {
+                        anomalies.length !== 0 ? Object.keys(anomalies).map((row, index) => {
                             console.log(anomalies)
                             return (
                                 <StyledTableRow key={index}>
                                     <StyledTableCell component="th" scope="row">
-                                        {anomalies[0][row].Description}
+                                        {anomalies[row].Description}
                                     </StyledTableCell>
                                     <StyledTableCell align="right">{row}</StyledTableCell>
-                                    <StyledTableCell align="right">{anomalies[0][row].start}</StyledTableCell>
-                                    <StyledTableCell align="right">{anomalies[0][row].end}</StyledTableCell>
+                                    <StyledTableCell align="right">{anomalies[row].start}</StyledTableCell>
+                                    <StyledTableCell align="right">{anomalies[row].end}</StyledTableCell>
                                     <StyledTableCell align="right">hh</StyledTableCell>
                                 </StyledTableRow>
                             )

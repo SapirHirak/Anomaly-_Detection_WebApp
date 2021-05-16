@@ -97,7 +97,8 @@ function Basic({ getAnomalies, currentIdModel }) {
     async function uploadDetectFile() {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
-        await axios.post("http://localhost:1234/uploadDetect", data, currentIdModel)
+        data.append("id", currentIdModel);
+        await axios.post("http://localhost:1234/uploadDetect", data)
         // axios.get("http://localhost:1234/api/model")
         getAnomalies()
 

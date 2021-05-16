@@ -108,7 +108,8 @@ function Basic({ addNewLearn }) {
         if (acceptedFiles[0]) {
             const data = new FormData()
             data.append("file", acceptedFiles[0])
-            await axios.post("http://localhost:1234/uploadLearn", data, learnType)
+            data.append("type", learnType);
+            await axios.post("http://localhost:1234/uploadLearn", data)
             // axios.post("http://localhost:1234/uploadDetect", data)
             // axios.get("http://localhost:1234/api/model")
             addNewLearn()

@@ -7,13 +7,8 @@ DEFS_Debug := \
 	'-DUSING_UV_SHARED=1' \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
-	'-DV8_DEPRECATION_WARNINGS' \
-	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
-	'-D__STDC_FORMAT_MACROS' \
-	'-DOPENSSL_NO_PINSHARED' \
-	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
 	'-D_DEBUG' \
@@ -27,6 +22,7 @@ CFLAGS_Debug := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
+	-fPIC \
 	-g \
 	-O0
 
@@ -40,26 +36,21 @@ CFLAGS_CC_Debug := \
 	-std=gnu++1y
 
 INCS_Debug := \
-	-I/root/.cache/node-gyp/14.17.0/include/node \
-	-I/root/.cache/node-gyp/14.17.0/src \
-	-I/root/.cache/node-gyp/14.17.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/14.17.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/14.17.0/deps/uv/include \
-	-I/root/.cache/node-gyp/14.17.0/deps/zlib \
-	-I/root/.cache/node-gyp/14.17.0/deps/v8/include
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/openssl/config \
+	-I/usr/include/nodejs/deps/openssl/openssl/include \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/zlib \
+	-I/usr/include/nodejs/deps/v8/include
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=API' \
 	'-DUSING_UV_SHARED=1' \
 	'-DUSING_V8_SHARED=1' \
 	'-DV8_DEPRECATION_WARNINGS=1' \
-	'-DV8_DEPRECATION_WARNINGS' \
-	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
-	'-D__STDC_FORMAT_MACROS' \
-	'-DOPENSSL_NO_PINSHARED' \
-	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
@@ -70,6 +61,7 @@ CFLAGS_Release := \
 	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
+	-fPIC \
 	-O3 \
 	-fno-omit-frame-pointer
 
@@ -83,13 +75,13 @@ CFLAGS_CC_Release := \
 	-std=gnu++1y
 
 INCS_Release := \
-	-I/root/.cache/node-gyp/14.17.0/include/node \
-	-I/root/.cache/node-gyp/14.17.0/src \
-	-I/root/.cache/node-gyp/14.17.0/deps/openssl/config \
-	-I/root/.cache/node-gyp/14.17.0/deps/openssl/openssl/include \
-	-I/root/.cache/node-gyp/14.17.0/deps/uv/include \
-	-I/root/.cache/node-gyp/14.17.0/deps/zlib \
-	-I/root/.cache/node-gyp/14.17.0/deps/v8/include
+	-I/usr/include/nodejs/include/node \
+	-I/usr/include/nodejs/src \
+	-I/usr/include/nodejs/deps/openssl/config \
+	-I/usr/include/nodejs/deps/openssl/openssl/include \
+	-I/usr/include/nodejs/deps/uv/include \
+	-I/usr/include/nodejs/deps/zlib \
+	-I/usr/include/nodejs/deps/v8/include
 
 OBJS := \
 	$(obj).target/$(TARGET)/API.o
@@ -128,7 +120,8 @@ LDFLAGS_Release := \
 	-rdynamic \
 	-m64
 
-LIBS :=
+LIBS := \
+	-lnode
 
 $(obj).target/API.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/API.node: LIBS := $(LIBS)

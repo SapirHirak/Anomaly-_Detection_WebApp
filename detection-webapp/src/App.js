@@ -75,8 +75,8 @@ function App() {
 
   async function getAnomalies() {
     let anomalies = await axios.get(`http://localhost:1234/getAnomaly`)
-    setAnomalies(anomalies.data)
     console.log(anomalies.data)
+    setAnomalies(anomalies.data)
   }
 
   function handleChooseModel(itemId) {

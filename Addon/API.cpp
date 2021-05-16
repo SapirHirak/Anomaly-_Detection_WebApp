@@ -124,12 +124,12 @@ namespace learnNormal {
 	    std::vector<AnomalyReport> anomalyReportVec = ad.detect(tsTest);
         vector<ContinuousAnomalies> continuousAnomalies = ContinuousAnomalies::findContinuousAnomalies(anomalyReportVec);
 
-        string str = "{\n";
+        string str = "{";
 	    	for (int i = 0; i < continuousAnomalies.size(); i++) {
-                str += "Anomaly_" + to_string(i) + ": {\nDescription:" + continuousAnomalies[i].description 
-                + "\",\nstart:" + to_string(continuousAnomalies[i].firstTimeStep) + ",\n"
-                + "end:" + to_string(continuousAnomalies[i].lastTimeStep) + '\n';
-                (i == continuousAnomalies.size() - 1) ? str += "}\n" : str += "},\n";
+                str += "\"Anomaly_" + to_string(i) + "\": {\"Description\":\"" + continuousAnomalies[i].description 
+                + "\",\"start\":\"" + to_string(continuousAnomalies[i].firstTimeStep) + "\",\""
+                + "end\":\"" + to_string(continuousAnomalies[i].lastTimeStep) + "\"";
+                (i == continuousAnomalies.size() - 1) ? str += "}" : str += "},";
 	    	}
         str += "}";
         args.GetReturnValue().Set(String::NewFromUtf8(isolate, str.c_str()));
