@@ -79,8 +79,9 @@ function App() {
     console.log(anomalies.data)
   }
 
-  function handleChoose(itemId) {
+  function handleChooseModel(itemId) {
     setcurrentIdModel(itemId)
+    console.log(currentIdModel)
   }
 
   return (
@@ -93,7 +94,7 @@ function App() {
         <Search searchFilterEvent={searchFilterEvent} />
         {learnFiles.length === 0 ?
           <span>No Models</span> :
-          <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} handleChoose={handleChoose} />
+          <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} handleChooseModel={handleChooseModel} currentIdModel={currentIdModel} />
         }
 
       </section>
