@@ -100,7 +100,7 @@ function Basic({ addNewLearn }) {
     const [learnType, setlearnType] = useState("regression")
 
 
-    const [selectedValue, setSelectedValue] = React.useState(learnType);
+    //const [selectedValue, setSelectedValue] = React.useState(learnType);
 
     //upload files to server
     async function uploadFiles() {
@@ -121,8 +121,8 @@ function Basic({ addNewLearn }) {
 
     function handleChooseType(learnType) {
         setlearnType(learnType)
-        setSelectedValue(learnType);
-        //console.log(learnType)
+        //setSelectedValue(learnType);
+        console.log(learnType)
     }
 
     return (
@@ -130,13 +130,13 @@ function Basic({ addNewLearn }) {
             <div>First, please enter your Learn csv file.</div>
             <section className="container dragDropLearn">
                 <Radio
-                    checked={selectedValue === "regression"}
+                    checked={learnType === "regression"}
                     onChange={() => handleChooseType("regression")}
                     value="regression"
                     name="radio-button-demo"
                     inputProps={{ 'aria-label': 'A' }}
                 /> Regression <Radio
-                    checked={selectedValue === "hybrid"}
+                    checked={learnType === "hybrid"}
                     onChange={() => handleChooseType("hybrid")}
                     value="hybrid"
                     name="radio-button-demo"

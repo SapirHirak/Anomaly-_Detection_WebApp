@@ -1,8 +1,16 @@
 import Radio from '@material-ui/core/Radio';
 import React from 'react';
+import { useState } from 'react';
 function LearnList({ learnFiles, removeLearn, handleChoose }) {
     function handleRemove(itemId) {
         removeLearn(itemId)
+    }
+
+    const [selectedModel, setselectedModel] = useState(1)
+
+    function handleChooseModel(selectedModel) { //get current id that selected
+        setselectedModel(selectedModel)
+        console.log(selectedModel)
     }
 
     return (
@@ -22,8 +30,8 @@ function LearnList({ learnFiles, removeLearn, handleChoose }) {
                                     type="checkbox" />
 
                                 <label> <Radio
-                                    // checked={selectedValue === 'a'}
-                                    onChange={() => handleChoose(item.id)}
+                                    checked={selectedModel === item.id}
+                                    onChange={() => handleChooseModel(item.id)}
                                     value={item.id}
                                     name="radio-button-demo"
                                     inputProps={{ 'aria-label': 'A' }}
