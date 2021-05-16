@@ -80,7 +80,7 @@ export default Accept;*/
 import axios from "axios"
 import { useEffect } from 'react';
 
-function Basic({ getAnomalies }) {
+function Basic({ getAnomalies, currentIdModel }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
     const files = acceptedFiles.map(file => (
@@ -97,7 +97,7 @@ function Basic({ getAnomalies }) {
     async function uploadDetectFile() {
         const data = new FormData()
         data.append("file", acceptedFiles[0])
-        await axios.post("http://localhost:1234/uploadDetect", data)
+        await axios.post("http://localhost:1234/uploadDetect", data, currentIdModel)
         // axios.get("http://localhost:1234/api/model")
         getAnomalies()
 
@@ -110,7 +110,7 @@ function Basic({ getAnomalies }) {
 
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
+                    <p className="DragDropErea">Drag 'n' drop some files here, or click to select files</p>
                 </div>
                 <aside>
                     <h4>Files</h4>
@@ -125,6 +125,7 @@ function Basic({ getAnomalies }) {
                     <i class="fas fa-plane-departure"></i>
                     Fly!
                 </Button>
+
             </section>
         </div>
     );

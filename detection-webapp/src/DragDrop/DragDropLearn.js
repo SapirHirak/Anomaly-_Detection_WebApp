@@ -80,7 +80,9 @@ function Accept(props) {
 
 export default Accept;*/
 import axios from "axios"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Radio from '@material-ui/core/Radio';
+
 
 function Basic({ addNewLearn }) {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
@@ -95,31 +97,54 @@ function Basic({ addNewLearn }) {
         console.log(acceptedFiles)
     }, [acceptedFiles])
 
+    const [learnType, setlearnType] = useState("regression")
+
+
+    const [selectedValue, setSelectedValue] = React.useState(learnType);
+
     //upload files to server
     async function uploadFiles() {
         console.log(acceptedFiles[0])
-        if(acceptedFiles[0]){
+        if (acceptedFiles[0]) {
             const data = new FormData()
             data.append("file", acceptedFiles[0])
-            await axios.post("http://localhost:1234/uploadLearn", data)
+            await axios.post("http://localhost:1234/uploadLearn", data, learnType)
             // axios.post("http://localhost:1234/uploadDetect", data)
             // axios.get("http://localhost:1234/api/model")
             addNewLearn()
         }
-        else{
+        else {
             alert("No file selected")
         }
 
+    }
+
+    function handleChooseType(learnType) {
+        setlearnType(learnType)
+        setSelectedValue(learnType);
+        //console.log(learnType)
     }
 
     return (
         <div>
             <div>First, please enter your Learn csv file.</div>
             <section className="container dragDropLearn">
-
+                <Radio
+                    checked={selectedValue === "regression"}
+                    onChange={() => handleChooseType("regression")}
+                    value="regression"
+                    name="radio-button-demo"
+                    inputProps={{ 'aria-label': 'A' }}
+                /> Regression <Radio
+                    checked={selectedValue === "hybrid"}
+                    onChange={() => handleChooseType("hybrid")}
+                    value="hybrid"
+                    name="radio-button-demo"
+                    inputProps={{ 'aria-label': 'A' }}
+                /> Hybrid
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
+                    <p className="DragDropErea">Drag 'n' drop some files here, or click to select files</p>
                 </div>
                 <aside>
                     <h4>Files</h4>

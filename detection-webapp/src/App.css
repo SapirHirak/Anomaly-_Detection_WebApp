@@ -18,6 +18,12 @@ body {
     padding: 10px;
 }
 
+.DragDropErea {
+    background-color: #fffbfb;
+    border: 1px solid rgb(20, 48, 71);
+    margin: 5px;
+}
+
 .dragDropAnomaly {
     margin-left: 50%;
     margin-bottom: 1%;
