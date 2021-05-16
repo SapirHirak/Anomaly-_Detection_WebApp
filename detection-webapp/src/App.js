@@ -33,18 +33,23 @@ function App() {
     // }
   ]);
   const [filterredName, setfilterredName] = useState("")
-  const [learnFiles, setLearnFile] = useState([]);
+  const [learnFiles, setLearnFile] = useState([
+    { id: 1, fileName: "hh" },
+    { id: 2, fileName: "ff" },
+    { id: 3, fileName: "sshh" }
+  ]);
+  const [currentIdModel, setcurrentIdModel] = useState(0)
 
-  useEffect(() => { 
+  useEffect(() => {
     getLearnFiles();
-  },[])
+  }, [])
 
-  const getLearnFiles = async()=> {
+  const getLearnFiles = async () => {
     let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
     setLearnFile(currentLearnFiles.data);
   }
 
-   const addNewLearn  = async() =>{
+  const addNewLearn = async () => {
     let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
     setLearnFile(currentLearnFiles.data);
 
@@ -55,7 +60,6 @@ function App() {
     const updateItems = await axios.delete("http://localhost:1234/deleteModel", itemId)
 
     setLearnFile(updateItems);
-
 
   }
 
@@ -72,6 +76,11 @@ function App() {
   async function getAnomalies() {
     let anomalies = await axios.get(`http://localhost:1234/getAnomaly`)
     setAnomalies(anomalies.data)
+    console.log(anomalies.data)
+  }
+
+  function handleChoose(itemId) {
+    setcurrentIdModel(itemId)
   }
 
   return (
@@ -80,15 +89,16 @@ function App() {
       <DragDropLearn addNewLearn={addNewLearn} />
       <h6>or choose from your models list:</h6>
       <section className="todoapp">
-      
+
         <Search searchFilterEvent={searchFilterEvent} />
-        {learnFiles.length === 0 ? 
-        <span>No Models</span>: 
-        <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} />
-      }
-        
+        {learnFiles.length === 0 ?
+          <span>No Models</span> :
+          <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} handleChoose={handleChoose} />
+        }
+
       </section>
-      <DragDropAnomaly getAnomalies={getAnomalies} />
+      <DragDropAnomaly currentIdModel={currentIdModel} getAnomalies={getAnomalies} />
+
       <Graph anomalies={anomalies} />
 
       {/* <TableAnomaly /> */}

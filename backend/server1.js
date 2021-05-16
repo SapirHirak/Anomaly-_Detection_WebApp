@@ -43,9 +43,11 @@ app.post('/uploadLearn', (req, res, next) => {
         // models.set(id, {id: id, fileName: file.name, time:
         //     d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" + 
         //     d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"});
-        models.push({id: id, fileName: file.name, time:
-            d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" + 
-            d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"});
+        models.push({
+            id: id, fileName: file.name, time:
+                d.getUTCFullYear() + "-" + d.getUTCMonth() + "-" + d.getUTCDate() + "T" +
+                d.getUTCDate() + ":" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + "+02.00"
+        });
         api.learn(`${__dirname}/temp/${file.name}`, id++, "regression");
         res.json({ file: `temp/${file.name}` });
     });
@@ -61,7 +63,7 @@ app.post('/uploadDetect', (req, res, next) => {
         if (err) {
             return res.status(500).send(err);
         }
-        
+
         lastAnomaly = api.detect(`temp/${file.name}`, reqId);
         res.json({ file: `temp/${file.name}` });
     });
@@ -76,10 +78,10 @@ app.get('/getModels', (req, res, next) => {
 })
 
 app.delete('/deleteModel', (req, res, next) => {
-   api.delete(req);
-   models = models.filter(currentItem => req !== currentItem.id);
-//    models.delete(req);
-   return res.status(200);
+    api.delete(req);
+    models = models.filter(currentItem => req !== currentItem.id);
+    //    models.delete(req);
+    return res.status(200);
 });
 
 app.listen(1234, () => console.log(`Running server on port 1234`))
