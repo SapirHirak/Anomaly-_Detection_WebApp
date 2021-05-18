@@ -34,9 +34,9 @@ function App() {
   ]);
   const [filterredName, setfilterredName] = useState("")
   const [learnFiles, setLearnFile] = useState([
-    { id: 1, fileName: "hh" },
+    /*{ id: 1, fileName: "hh" },
     { id: 2, fileName: "ff" },
-    { id: 3, fileName: "sshh" }
+    { id: 3, fileName: "sshh" }*/
   ]);
   const [currentIdModel, setcurrentIdModel] = useState(0)
 
@@ -99,11 +99,13 @@ function App() {
 
       </section>
       <DragDropAnomaly currentIdModel={currentIdModel} getAnomalies={getAnomalies} />
+      <div className="graphDiv">
+        <Graph anomalies={anomalies} />
+      </div>
+      <div className="tableDiv">
+        <StickyHeadTable anomalies={anomalies} />
+      </div>
 
-      <Graph anomalies={anomalies} />
-
-      {/* <TableAnomaly /> */}
-      <StickyHeadTable anomalies={anomalies} />
 
 
     </div>

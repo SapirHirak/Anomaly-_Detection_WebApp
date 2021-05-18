@@ -4,9 +4,18 @@ body {
 }
 
 .tableCss {
-    width: 80%;
-    display: flex;
-    margin: auto;
+
+    margin-left: 5%;
+}
+
+.GraphCss {}
+
+.graphDiv {
+    display: inline-block;
+}
+
+.tableDiv {
+    display: inline-block;
 }
 
 .dragDropLearn {
