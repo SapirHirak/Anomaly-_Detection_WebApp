@@ -32,7 +32,7 @@ app.post('/uploadLearn', (req, res, next) => {
     });
 })
 
-app.post('/uploadDetect', (req, res, next) => {
+app.post('/detect', (req, res, next) => {
     let file = req.files.file;
     let reqId = req.body.id;
     csvData = file.data.toString('utf8');
