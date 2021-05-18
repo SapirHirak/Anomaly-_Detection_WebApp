@@ -128,7 +128,7 @@ function Basic({ addNewLearn }) {
 
     return (
         <div>
-            <div>First, please enter your Learn csv file.</div>
+            {/* <div>Please enter your Learn csv file.</div> */}
             <section className="container dragDropLearn">
                 <Radio
                     checked={learnType === "regression"}
@@ -145,7 +145,7 @@ function Basic({ addNewLearn }) {
                 /> Hybrid
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p className="DragDropErea">Drag 'n' drop some files here, or click to select files</p>
+                    <p className="DragDropArea">Drag some files here, or click to select files</p>
                 </div>
                 <aside>
                     <h4>Files</h4>

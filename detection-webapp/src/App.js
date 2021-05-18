@@ -87,21 +87,33 @@ function App() {
   return (
     <div className="App">
       <div className="mainTitle">Welcome to Anomaly Detection Webapp! </div>
-      <DragDropLearn addNewLearn={addNewLearn} />
-      <h6>or choose from your models list:</h6>
+
+      <div>
+        <div style={{textAlign: "center"}}>Please enter your Learn csv file.</div>
+        <DragDropLearn addNewLearn={addNewLearn} />
+      </div>
+
       <section className="todoapp">
+        <p>Please choose uploaded model from list:</p>
 
         <Search searchFilterEvent={searchFilterEvent} />
+
         {learnFiles.length === 0 ?
           <span>No Models</span> :
           <LearnList learnFiles={renderLearnFiles()} removeLearn={removeLearn} handleChooseModel={handleChooseModel} currentIdModel={currentIdModel} />
         }
 
       </section>
-      <DragDropAnomaly currentIdModel={currentIdModel} getAnomalies={getAnomalies} />
+    
+      <div className="anomalyDropDiv">
+        <p className="greatTitle">Great! now, add your anomaly csv file.</p>
+        <DragDropAnomaly currentIdModel={currentIdModel} getAnomalies={getAnomalies} />
+      </div>
+
       <div className="graphDiv">
         <Graph anomalies={anomalies} />
       </div>
+
       <div className="tableDiv">
         <StickyHeadTable anomalies={anomalies} />
       </div>

@@ -4,47 +4,59 @@ body {
 }
 
 .tableCss {
-
-    margin-left: 5%;
+    /* margin-left: 5%; */
 }
 
-.GraphCss {}
+/* .GraphCss {} */
 
 .graphDiv {
+    margin: 2%;
     display: inline-block;
 }
 
 .tableDiv {
+    width: 52%;
     display: inline-block;
 }
 
 .dragDropLearn {
     margin-top: 1%;
-    margin-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 1%;
     width: 30%;
     border: 3px solid rgb(28, 0, 41);
     padding: 10px;
 }
 
-.DragDropErea {
+.DragDropArea {
     background-color: #fffbfb;
     border: 1px solid rgb(20, 48, 71);
     margin: 5px;
 }
 
+.anomalyDropDiv {
+    display: inline-block;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
 .dragDropAnomaly {
-    margin-left: 50%;
+    /* margin-left: 50%; */
     margin-bottom: 1%;
-    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 30%; */
     border: 3px solid rgb(28, 0, 41);
-    padding: 10px;
+    /* padding: 10px; */
+    /* display: inline-block; */
 }
 
 .greatTitle {
     margin-left: 50%;
     margin-bottom: 1%;
-    width: 30%;
+    /* width: 30%; */
+    width: 100%;
     padding: 10px;
 }
 
@@ -100,11 +112,14 @@ input[type="checkbox"] {
 
 .todoapp {
     background: #fff;
-    margin: 130px 0 40px 0;
-    position: relative;
+    /* margin: 130px 0 40px 0; */
+    margin: 1%;
+    /* position: relative; */
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
         0 25px 50px 0 rgba(0, 0, 0, 0.1);
-    width: 50%;
+    width: 45%;
+    display: inline-block;
+
 }
 
 .todoapp input::-webkit-input-placeholder {

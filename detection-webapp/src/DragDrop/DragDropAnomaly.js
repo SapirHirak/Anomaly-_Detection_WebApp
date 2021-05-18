@@ -106,15 +106,15 @@ function Basic({ getAnomalies, currentIdModel }) {
 
     return (
         <div>
-            <div className="greatTitle">Great! now, add your anomaly csv file.</div>
+            {/* <div className="greatTitle">Great! now, add your anomaly csv file.</div> */}
             <section className="container dragDropAnomaly">
 
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p className="DragDropErea">Drag 'n' drop some files here, or click to select files</p>
+                    <p className="DragDropArea">Drag some files here, or click to select files</p>
                 </div>
                 <aside>
-                    <h4>Files</h4>
+                    {/* <h4>Files</h4> */}
                     <ul>{files}</ul>
                 </aside>
                 <Button onClick={uploadDetectFile}
