@@ -13,3 +13,6 @@ Note: If you are using a virtual machine download the files on a non-mounted dir
 4. Open the terminal in the backend directory and type "node server.js", now the server is up and running.
 5. Open the terminal in the backend directory and type "npm start", now the client is up and running and should open the browser on "localhost:9876" address.
 6. Now the app is running, and you can upload your models(train files) and test files to check for anomalies that shows in a graph and a table below.
+
+### UML
+![UML](https://user-images.githubusercontent.com/74674979/119004229-0a5d0280-b997-11eb-9251-789066cd3b5a.png)
