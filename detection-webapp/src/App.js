@@ -54,9 +54,12 @@ function App() {
 
     async function removeLearn(itemId) {
         //const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
-        const updateItems = await axios.delete("http://localhost:1234/deleteModel", itemId)
+        const data = {
+          id: itemId
+        }
+        const updateItems = await axios.delete("http://localhost:1234/deleteModel", {data})
 
-        setLearnFile(updateItems);
+        setLearnFile(updateItems.data);
 
     }
 
