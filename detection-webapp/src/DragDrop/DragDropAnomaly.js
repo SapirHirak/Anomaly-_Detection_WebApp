@@ -95,12 +95,17 @@ function Basic({ getAnomalies, currentIdModel }) {
 
     //upload files to server
     async function uploadDetectFile() {
-        const data = new FormData()
-        data.append("file", acceptedFiles[0])
-        data.append("id", currentIdModel);
-        await axios.post("http://localhost:1234/detect", data)
-        // axios.get("http://localhost:1234/api/model")
-        getAnomalies()
+        if (acceptedFiles[0]) {
+            const data = new FormData()
+            data.append("file", acceptedFiles[0])
+            data.append("id", currentIdModel);
+            await axios.post("http://localhost:1234/detect", data)
+            // axios.get("http://localhost:1234/api/model")
+            getAnomalies()
+        }
+        else {
+            alert("No file selected")
+        }
 
     }
 
@@ -111,10 +116,10 @@ function Basic({ getAnomalies, currentIdModel }) {
 
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p className="DragDropArea">Drag some files here, or click to select files</p>
+                    <div className="DragDropArea">Drag some files here, or click to select files</div>
                 </div>
                 <aside>
-                    {/* <h4>Files</h4> */}
+                    {<h5>Chosen Files:</h5>}
                     <ul>{files}</ul>
                 </aside>
                 <Button onClick={uploadDetectFile}

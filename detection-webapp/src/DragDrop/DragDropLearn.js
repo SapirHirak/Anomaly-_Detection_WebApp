@@ -8,77 +8,6 @@ import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import '../App.css';
-
-/*const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: theme.spacing(1),
-    },
-}));
-
-function Accept(props) {
-    const {
-        acceptedFiles,
-        fileRejections,
-        getRootProps,
-        getInputProps
-    } = useDropzone({
-        accept: 'text/csv'
-    });
-
-    function uploadFiles() {
-
-    }
-
-
-    const acceptedFileItems = acceptedFiles.map(file => (
-        <li key={file.path}>
-            {file.path} - {file.size} bytes
-        </li>
-    ));
-
-    const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-        <li key={file.path}>
-            {file.path} - {file.size} bytes
-            <ul>
-                {errors.map(e => (
-                    <li key={e.code}>{e.message}</li>
-                ))}
-            </ul>
-        </li>
-    ));
-    const classes = useStyles();
-    return (
-        <div>
-            {console.log(acceptedFiles[0])}
-            <div>First, please enter your Learn csv file.</div>
-            <section className="container dragDropLearn">
-                <div {...getRootProps({ className: 'dropzone' })}>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                    <em>(Only *.jpeg and *.png images will be accepted)</em>
-                </div>
-                <aside>
-                    <h4>Accepted files</h4>
-                    <ul>{acceptedFileItems}</ul>
-                    <h4>Rejected files</h4>
-                    <ul>{fileRejectionItems}</ul>
-                </aside>
-                <Button onClick={uploadFiles}
-                    variant="contained"
-                    color="default"
-                    className={classes.button}
-                    startIcon={<CloudUploadIcon />}
-                >
-                    Upload
-                </Button>
-            </section>
-        </div>
-    );
-}
-
-<Accept />
-
-export default Accept;*/
 import axios from "axios"
 import { useEffect, useState } from 'react';
 import Radio from '@material-ui/core/Radio';
@@ -145,10 +74,10 @@ function Basic({ addNewLearn }) {
                 /> Hybrid
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
-                    <p className="DragDropArea">Drag some files here, or click to select files</p>
+                    <div className="DragDropArea">Drag some files here, or click to select files</div>
                 </div>
                 <aside>
-                    <h4>Files</h4>
+                    <h5>Chosen Files:</h5>
                     <ul>{files}</ul>
                 </aside>
                 <Button onClick={uploadFiles}

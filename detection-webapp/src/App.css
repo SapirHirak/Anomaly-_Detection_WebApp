@@ -1,6 +1,53 @@
 body {
 
-    background-image: linear-gradient(to top, #efcbfd 0%, #fdcbf1 1%, #e6dee9 100%);
+    /* background-image: linear-gradient(to top, #efcbfd 0%, #fdcbf1 1%, #e6dee9 100%);
+    background-size: cover;
+    background-repeat: no-repeat; */
+
+    background: #bdc3c7;
+    background: -webkit-linear-gradient(to right, #efcbfd, #fdcbf1);
+    background: linear-gradient(to right, #efcbfd, #e6dee9);
+
+
+}
+
+.DragDropLearn {
+    grid-area: header;
+}
+
+.LearnList {
+    grid-area: menu;
+}
+
+.anomalyDropDiv {
+    grid-area: main;
+    display: inline-block;
+    /* margin-bottom: 5%;
+margin-top: 5%; */
+}
+
+.tableDiv {
+    grid-area: right;
+    margin-right: 2%;
+    width: 100%;
+    display: inline-block;
+}
+
+.graphDiv {
+    grid-area: footer;
+    margin: 2%;
+    display: inline-block;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'menu main'
+        'footer right';
+    grid-gap: 10% 1%;
+    padding: 2%;
 }
 
 .tableCss {
@@ -9,15 +56,9 @@ body {
 
 /* .GraphCss {} */
 
-.graphDiv {
-    margin: 2%;
-    display: inline-block;
-}
 
-.tableDiv {
-    width: 52%;
-    display: inline-block;
-}
+
+
 
 .dragDropLearn {
     margin-top: 1%;
@@ -32,14 +73,12 @@ body {
 .DragDropArea {
     background-color: #fffbfb;
     border: 1px solid rgb(20, 48, 71);
-    margin: 5px;
+    padding: 7%;
+    margin: 2%;
+
 }
 
-.anomalyDropDiv {
-    display: inline-block;
-    margin-bottom: 5%;
-    margin-top: 5%;
-}
+
 
 .dragDropAnomaly {
     /* margin-left: 50%; */
@@ -117,7 +156,7 @@ input[type="checkbox"] {
     /* position: relative; */
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
         0 25px 50px 0 rgba(0, 0, 0, 0.1);
-    width: 45%;
+    width: 85%;
     display: inline-block;
 
 }
