@@ -55,10 +55,10 @@ app.get('/getModels', (req, res, next) => {
 })
 
 app.delete('/deleteModel', (req, res, next) => {
-   api.delete(req.params.id);
-   models = models.filter(currentItem => req.params.id !== currentItem.id);
-   models.delete(req.params.id);
-   return res.status(200);
+    api.deleteModel(req.body.id);
+    models = models.filter(currentItem => req.body.id !== currentItem.id);
+    // return res.status(200);
+    return res.json(models);
 });
 
 app.listen(1234, () => console.log(`Running server on port 1234`))
