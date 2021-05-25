@@ -1,40 +1,31 @@
 body {
-
-    /* background-image: linear-gradient(to top, #efcbfd 0%, #fdcbf1 1%, #e6dee9 100%);
-    background-size: cover;
-    background-repeat: no-repeat; */
-
     background: #bdc3c7;
     background: -webkit-linear-gradient(to right, #efcbfd, #fdcbf1);
     background: linear-gradient(to right, #efcbfd, #e6dee9);
-
-
 }
 
 .DragDropLearn {
-    grid-area: header;
+    grid-area: dropLearn;
 }
 
 .LearnList {
-    grid-area: menu;
+    grid-area: learnList;
 }
 
 .anomalyDropDiv {
-    grid-area: main;
+    grid-area: dropAnomaly;
     display: inline-block;
-    /* margin-bottom: 5%;
-margin-top: 5%; */
 }
 
 .tableDiv {
-    grid-area: right;
+    grid-area: table;
     margin-right: 2%;
     width: 100%;
     display: inline-block;
 }
 
 .graphDiv {
-    grid-area: footer;
+    grid-area: graph;
     margin: 2%;
     display: inline-block;
 }
@@ -43,21 +34,17 @@ margin-top: 5%; */
 .grid-container {
     display: grid;
     grid-template-areas:
-        'header header'
-        'menu main'
-        'footer right';
+        'dropLearn dropLearn'
+        'learnList dropAnomaly'
+        'table table';
     grid-gap: 10% 1%;
     padding: 2%;
+    margin-bottom: 5%;
 }
 
-.tableCss {
+/* .tableCss { */
     /* margin-left: 5%; */
-}
-
-/* .GraphCss {} */
-
-
-
+/* } */
 
 
 .dragDropLearn {
@@ -81,20 +68,14 @@ margin-top: 5%; */
 
 
 .dragDropAnomaly {
-    /* margin-left: 50%; */
     margin-bottom: 1%;
     margin-left: auto;
     margin-right: auto;
-    /* width: 30%; */
     border: 3px solid rgb(28, 0, 41);
-    /* padding: 10px; */
-    /* display: inline-block; */
 }
 
 .greatTitle {
-    margin-left: 50%;
     margin-bottom: 1%;
-    /* width: 30%; */
     width: 100%;
     padding: 10px;
 }
@@ -105,7 +86,8 @@ margin-top: 5%; */
     font: 40px italic;
     padding: 10px;
     margin: auto;
-    padding: 10px;
+    text-align: center;
+
 }
 
 /* for the list*/
@@ -127,19 +109,6 @@ button {
     font-smoothing: antialiased;
 }
 
-/*body {
-    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.4em;
-    color: #4d4d4d;
-    min-width: 230px;
-    max-width: 550px;
-    margin: 0 auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    font-weight: 300;
-}*/
-
 button,
 input[type="checkbox"] {
     outline: none;
@@ -153,7 +122,7 @@ input[type="checkbox"] {
     background: #fff;
     /* margin: 130px 0 40px 0; */
     margin: 1%;
-    /* position: relative; */
+    position: relative;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
         0 25px 50px 0 rgba(0, 0, 0, 0.1);
     width: 85%;

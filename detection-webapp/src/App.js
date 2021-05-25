@@ -12,28 +12,10 @@ import axios from "axios"
 
 
 function App() {
-    const [anomalies, setAnomalies] = useState([
-        // {
-        //   Anomaly_0: {
-        //     Description: "throttle-engine_rpm",
-        //     start: 224,
-        //     end: 1472
-        //   }, Anomaly_1: {
-        //     Description: "airspeed-kt-airspeed-indicator_indicated-speed-kt",
-        //     start: 504,
-        //     end: 700
-        //   }, Anomaly_2: {
-        //     Description: "slip-skid-ball_indicated-slip-skid-airspeed-indicator_indicated-speed-kt",
-        //     start: 554,
-        //     end: 614
-        //   }
-        // }
-    ]);
+    const [anomalies, setAnomalies] = useState([]);
     const [filterredName, setfilterredName] = useState("")
     const [learnFiles, setLearnFile] = useState([
-        { id: 1, fileName: "name", type: "type", time: "10" },
-        { id: 2, fileName: "ff", type: "type", time: "10" },
-        { id: 3, fileName: "sshh", type: "type", time: "10" }
+
     ]);
     const [currentIdModel, setcurrentIdModel] = useState(0)
 
@@ -53,14 +35,12 @@ function App() {
     }
 
     async function removeLearn(itemId) {
-        //const updateItems = learnFiles.filter(currentItem => itemId !== currentItem.id)
         const data = {
           id: itemId
         }
         const updateItems = await axios.delete("http://localhost:1234/deleteModel", {data})
 
         setLearnFile(updateItems.data);
-
     }
 
     //
@@ -113,9 +93,9 @@ function App() {
                     <DragDropAnomaly currentIdModel={currentIdModel} getAnomalies={getAnomalies} />
                 </div>
 
-                <div className="graphDiv">
+                {/* <div className="graphDiv">
                     <Graph anomalies={anomalies} />
-                </div>
+                </div> */}
 
                 <div className="tableDiv">
                     <StickyHeadTable anomalies={anomalies} />

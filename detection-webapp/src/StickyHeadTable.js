@@ -36,7 +36,7 @@ export default function CustomizedTables({ anomalies }) {
     const classes = useStyles();
 
     return (
-        <div className="tableCss">
+        <div className="tableCss" style={{ marginBottom: "2%" }}>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead color="red">

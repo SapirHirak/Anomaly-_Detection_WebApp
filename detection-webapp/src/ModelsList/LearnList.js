@@ -35,7 +35,7 @@ function LearnList({ learnFiles, removeLearn, handleChooseModel, currentIdModel 
                                     value={item.id}
                                     name="radio-button-demo"
                                     inputProps={{ 'aria-label': 'A' }}
-                                /> File name: {item.fileName}, Upload time: {item.time}, Model type: {item.type}</label>
+                                /> File: {item.fileName}, Upload time: {item.time}, Model type: {item.type}</label>
                                 <button onClick={() => handleRemove(item.id)} className="destroy" />
                             </div>
                             <input className="edit" />
