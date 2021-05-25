@@ -1,12 +1,12 @@
 # Advanced Programming 2 - Anomaly Detection WebApp
 
 ## Description
-The client holds and run the HTML page. When the user want to upload a model, the client sends a post request to the server and the server uses the API to process the file and create the model, the API saves the model in a map, the server saves it in an array of models and each element holds the model's id, file name, type(regression or hybrid) and it's upload time.
+The client holds and run the HTML page. When the user wants to upload a model, the client sends an HTTP POST request to the server and the server uses the API to process the file and create the model, the API saves the model in a map, the server saves it in an array of models and each element holds the model's id, file name, type (regression or hybrid), and it's upload time.
 when the user wants to upload a test file to detect anomalies the client sends a post request to the server to upload a test file, the server passes it to the API and which process it and returns a json object with the detected anomalies, and the server sends it to the client which displays the anomalies in a table.
 when the user wants to delete a model the client sends a delete request to the server which deletes the requested model from it's list via the model ID and use the API to delete it from the model map that the API holds.
 
-#### files
-Addon directory contains the files for the anomaly detector which implemented in c++ adn the API to use it in the javascript code.
+#### Addon
+Addon directory contains the files for the anomaly detector which implemented in c++ and the API to use it in the javascript code.
 backend directory contains the files for the server.
 detection-webapp directory contains the files for the client- the web page and it's elements (drag and drop, models table, etc...).
 
