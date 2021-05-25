@@ -9,7 +9,6 @@ when the user wants to delete a model the client sends a delete request to the s
 Addon directory contains the files for the anomaly detector which implemented in c++ adn the API to use it in the javascript code.
 backend directory contains the files for the server.
 detection-webapp directory contains the files for the client- the web page and it's elements (drag and drop, models table, etc...).
-CSVs directory contains csv learn/test files to try in the app.
 
 ## Installation
 1. Use linux OS.
