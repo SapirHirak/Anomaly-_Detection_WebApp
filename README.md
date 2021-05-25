@@ -10,7 +10,7 @@ Addon directory contains the files for the anomaly detector which implemented in
 backend directory contains the files for the server.
 detection-webapp directory contains the files for the client- the web page and it's elements (drag and drop, models table, etc...).
 
-## used packages
+## Packages
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
@@ -42,7 +42,7 @@ NOTE: if there are errors in this step or if one of the next two steps fail, run
 5. Open the terminal in the backend directory and type "npm start", now the client is up and running and should open the browser on "localhost:9876" address.
 6. Now the app is running, and you can upload your models(train files) and test files to check for anomalies that shows in a table below.
 
-How it looks:
+#### How it looks:
 ![image](https://user-images.githubusercontent.com/73121058/119548606-0ec25a80-bd9f-11eb-92d2-4ff2c3199909.png)
 
 ### UML
