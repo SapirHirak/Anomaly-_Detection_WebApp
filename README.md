@@ -11,25 +11,30 @@ backend directory contains the files for the server.
 detection-webapp directory contains the files for the client- the web page and it's elements (drag and drop, models table, etc...).
 
 ## Packages
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.21.1",
-    "bootstrap": "^5.0.0",
-    "node-gyp": "^8.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-dropzone": "^11.3.2",
-    "react-scripts": "4.0.3",
-    "recharts": "^2.0.9",
+    node.js
+    react
+    axios
+    
+    these will get installed when you use npm install in the terminal:
+    "@fortawesome/fontawesome-free": "^5.15.3"
+    "@material-ui/core": "^4.11.4"
+    "@material-ui/icons": "^4.11.2"
+    "@testing-library/jest-dom": "^5.12.0"
+    "@testing-library/react": "^11.2.6"
+    "@testing-library/user-event": "^12.8.3"
+    "axios": "^0.21.1"
+    "bootstrap": "^5.0.0"
+    "node-gyp": "^8.0.0"
+    "react": "^17.0.2"
+    "react-dom": "^17.0.2"
+    "react-dropzone": "^11.3.2"
+    "react-scripts": "4.0.3"
+    "recharts": "^2.0.9"
     "web-vitals": "^1.1.1"
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
+    "body-parser": "^1.19.0"
+    "cors": "^2.8.5"
+    "ejs": "^3.1.6"
+    "express": "^4.17.1"
     "express-fileupload": "^1.2.1"
     
 ## Installation
