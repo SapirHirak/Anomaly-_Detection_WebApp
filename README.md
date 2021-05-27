@@ -5,7 +5,48 @@ The client holds and run the HTML page. When the user wants to upload a model, t
 when the user wants to upload a test file to detect anomalies the client sends a post request to the server to upload a test file, the server passes it to the API and which process it and returns a json object with the detected anomalies, and the server sends it to the client which displays the anomalies in a table.
 when the user wants to delete a model the client sends a delete request to the server which deletes the requested model from it's list via the model ID and use the API to delete it from the model map that the API holds.
 
-#### Addon
+## Server API
+to upload a learn file to the server we use post("http://localhost:1234/uploadLearn", data).
+the request expects to receive the file and the anomaly detection type in the data.
+for example:
+
+    const data = new FormData()
+                data.append("file", acceptedFiles[0])
+                data.append("type", learnType);
+                await axios.post("http://localhost:1234/uploadLearn", data)
+
+to upload a test file to the server we use post("http://localhost:1234/detect", data).
+the request expects to receive the file and the ID of the model you want to detect by in the data.
+for example:
+
+    const data = new FormData()
+                data.append("file", acceptedFiles[0])
+                data.append("id", currentIdModel);
+                await axios.post("http://localhost:1234/detect", data)
+
+to get the model list from the server we use get("http://localhost:1234/getModels").
+the request returns the model list as a json.
+for example:
+
+        await axios.get("http://localhost:1234/getModels")
+
+to get the anomalies that were detected we use get(http://localhost:1234/getAnomaly).
+the request returns the detected anomalies as a json.
+for example:
+
+    axios.get(http://localhost:1234/getAnomaly)
+
+to delete a model from the server we use delete("http://localhost:1234/deleteModel", {data}).
+the request expects to receive the ID of the model we want to delete in the data.
+for example:
+
+    const data = {
+            id: itemId
+            }
+    await axios.delete("http://localhost:1234/deleteModel", {data})
+
+
+### Directories
 Addon directory contains the files for the anomaly detector which implemented in c++ and the API to use it in the javascript code.
 backend directory contains the files for the server.
 detection-webapp directory contains the files for the client- the web page and it's elements (drag and drop, models table, etc...).
