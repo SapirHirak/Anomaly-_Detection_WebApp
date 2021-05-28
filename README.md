@@ -1,8 +1,8 @@
 # Advanced Programming 2 - Anomaly Detection WebApp
 
 ## Description
-server port - 1234  
-client port - 9876  
+Server port - 1234  
+Client port - 9876  
 The client holds and runs the HTML page. When the user wants to upload a model, the client sends an HTTP POST request to the server and the server uses the API to process the file and create the model, the API saves the model in a map, the server saves it in an array of models and each element holds the model's id, file name, type (regression or hybrid), and it's upload time.  
 When the user wants to upload a test file to detect anomalies the client sends an HTTP POST request to the server to upload a test file, the server passes it to the API which processes it and returns a json object with the detected anomalies, and the server sends it to the client which displays the anomalies in a table.  
 When the user wants to delete a model the client sends a delete request to the server which deletes the requested model from it's list via the model ID and use the API to delete it from the model map that the API holds.
