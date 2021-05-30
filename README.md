@@ -1,10 +1,10 @@
 # Advanced Programming 2 - Anomaly Detection WebApp
-**Features video:**
+**Features video:**  
 https://www.youtube.com/watch?v=DuF9lnf-FcU
 
-**Technical info:**
-Node: v10.19.0
-Npm:  6.14.4
+**Technical info:**  
+Node: v10.19.0  
+Npm:  6.14.4  
 Server port - 1234  
 Client port - 9876  
 
