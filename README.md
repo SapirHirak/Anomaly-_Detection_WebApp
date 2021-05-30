@@ -1,6 +1,8 @@
 # Advanced Programming 2 - Anomaly Detection WebApp
 
+https://www.youtube.com/watch?v=DuF9lnf-FcU
 ## Description
+
 Server port - 1234  
 Client port - 9876  
 The client holds and runs the HTML page. When the user wants to upload a model, the client sends an HTTP POST request to the server and the server uses the API to process the file and create the model, the API saves the model in a map, the server saves it in an array of models and each element holds the model's id, file name, type (regression or hybrid), and it's upload time.  
