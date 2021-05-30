@@ -3,31 +3,34 @@ import Graph from './Graph';
 import Search from './ModelsList/Search';
 import DragDropLearn from './DragDrop/DragDropLearn';
 import DragDropAnomaly from './DragDrop/DragDropAnomaly';
-import DragAndDrop from './DragAndDrop';
 import LearnList from './ModelsList/LearnList';
 import StickyHeadTable from './StickyHeadTable';
-import reactDom from 'react-dom';
 import { useEffect, useState } from "react";
 import axios from "axios"
+// import reactDom from 'react-dom';
 
 
 function App() {
+    // array to hold the anomalies we receive from the server
     const [anomalies, setAnomalies] = useState([]);
+    // filtered files for searching for specific model
     const [filterredName, setfilterredName] = useState("")
-    const [learnFiles, setLearnFile] = useState([
-
-    ]);
+    // list of all models
+    const [learnFiles, setLearnFile] = useState([]);
+    // variable to track current model id
     const [currentIdModel, setcurrentIdModel] = useState(0)
-
+    // for realtime updates
     useEffect(() => {
         getLearnFiles();
     }, [])
 
+    // calls HTTP GET request to receive all models on the server and updates it on the webpage
     const getLearnFiles = async () => {
         let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
         setLearnFile(currentLearnFiles.data);
     }
 
+    
     const addNewLearn = async () => {
         let currentLearnFiles = await axios.get("http://localhost:1234/getModels")
         setLearnFile(currentLearnFiles.data);

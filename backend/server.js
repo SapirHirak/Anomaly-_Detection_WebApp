@@ -1,11 +1,13 @@
-
+// useful for opening a server
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
+// useful for uploading files
 const fileUpload = require('express-fileupload')
 const app = express()
+// includes the c++ anomaly detector api
 const api = require('../Addon/build/Release/API')
-
+// for saving model upload date
 let d = new Date();
 
 // intialize the id for uploaded models
@@ -51,14 +53,17 @@ app.post('/uploadLearn', (req, res, next) => {
 
 // post request to upload a test file, it uploads it and detects the anomalies using the API/Addon
 app.post('/detect', (req, res, next) => {
+    // retrieving the data from the post request
     let file = req.files.file;
     let reqId = req.body.id;
     csvData = file.data.toString('utf8');
+    // receiving the file
     file.mv(`${__dirname}/temp/${file.name}`, function (err) {
         if (err) {
             return res.status(500).send(err);
         }
-        
+        // calling the api to detect the anomalies on the file we received using the model we provided
+        // saves received anomalies in a json for later use
         lastAnomaly = api.detect(`temp/${file.name}`, reqId);
         res.json({ file: `temp/${file.name}` });
     });
@@ -77,9 +82,10 @@ app.get('/getModels', (req, res, next) => {
 
 // delete request to delete the requested model with the given ID
 app.delete('/deleteModel', (req, res, next) => {
+    // removes model from the api
     api.deleteModel(req.body.id);
+    // removes model from our local list
     models = models.filter(currentItem => req.body.id !== currentItem.id);
-    // return res.status(200);
     return res.json(models);
 });
 
