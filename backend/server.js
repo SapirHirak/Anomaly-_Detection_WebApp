@@ -75,7 +75,7 @@ app.get('/getAnomaly', (req, res, next) => {
     return res.json(JSON.parse(lastAnomaly));
 })
 
-// get request to return the model array
+// get request to return the model array 
 app.get('/getModels', (req, res, next) => {
     return res.json(models);
 })
