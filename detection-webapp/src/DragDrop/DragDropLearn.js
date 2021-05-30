@@ -1,47 +1,43 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import Icon from '@material-ui/core/Icon';
-import SaveIcon from '@material-ui/icons/Save';
 import '../App.css';
 import axios from "axios"
 import { useEffect, useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 
-
-function Basic({ addNewLearn }) {
+// dragdroplearn component
+function Basic({ getLearnFiles }) {
+    // files received using dropzone import
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-
+    // accepted files from the dropzone
     const files = acceptedFiles.map(file => (
         <li key={file.path}>
             {file.path} - {file.size} bytes
         </li>
     ));
 
+    // for "realtime" updates
     useEffect(() => {
         console.log(acceptedFiles)
     }, [acceptedFiles])
 
+    // model type (default set to regression for convenience )
     const [learnType, setlearnType] = useState("regression")
-
-
-    //const [selectedValue, setSelectedValue] = React.useState(learnType);
 
     //upload files to server
     async function uploadFiles() {
         console.log(acceptedFiles[0])
+        // if we received data:
         if (acceptedFiles[0]) {
+            // sets up data fields to send in the post request
             const data = new FormData()
             data.append("file", acceptedFiles[0])
             data.append("type", learnType);
+            // calls HTTP POST request to send the learn file to the server
             await axios.post("http://localhost:1234/uploadLearn", data)
-            // axios.post("http://localhost:1234/uploadDetect", data)
-            // axios.get("http://localhost:1234/api/model")
-            addNewLearn()
+            getLearnFiles()
         }
         else {
             alert("No file selected")
@@ -49,16 +45,15 @@ function Basic({ addNewLearn }) {
 
     }
 
+    // sets model type
     function handleChooseType(learnType) {
         setlearnType(learnType)
-        //setSelectedValue(learnType);
-        console.log(learnType)
     }
 
     return (
         <div>
-            {/* <div>Please enter your Learn csv file.</div> */}
             <section className="container dragDropLearn">
+                {/* radio buttons for choosing model type */}
                 <Radio
                     checked={learnType === "regression"}
                     onChange={() => handleChooseType("regression")}
@@ -72,6 +67,7 @@ function Basic({ addNewLearn }) {
                     name="radio-button-demo"
                     inputProps={{ 'aria-label': 'A' }}
                 /> Hybrid
+                {/* dropbox for dragging files */}
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
                     <div className="DragDropArea">Drag some files here, or click to select files</div>
@@ -80,6 +76,7 @@ function Basic({ addNewLearn }) {
                     <h5>Chosen Files:</h5>
                     <ul>{files}</ul>
                 </aside>
+                {/* uploads files when we click the upload button */}
                 <Button onClick={uploadFiles}
                     variant="contained"
                     color="default"

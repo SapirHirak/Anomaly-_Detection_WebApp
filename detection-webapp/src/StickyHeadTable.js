@@ -27,9 +27,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles({
-    table: {
-        // minWidth: 900,
-    },
+    table: {},
 });
 
 export default function CustomizedTables({ anomalies }) {
