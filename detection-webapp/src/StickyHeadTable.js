@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+// table appearence
 const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: theme.palette.common.black,
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables({ anomalies }) {
     const classes = useStyles();
 
+    // returns anomaly table
     return (
         <div className="tableCss" style={{ marginBottom: "2%" }}>
             <TableContainer component={Paper}>
@@ -47,8 +49,8 @@ export default function CustomizedTables({ anomalies }) {
                     </TableHead>
                     <TableBody>
                         {
+                            // iterates over anomalys and displays them in the list
                             anomalies.length !== 0 ? Object.keys(anomalies).map((row, index) => {
-                                console.log(anomalies)
                                 return (
                                     <StyledTableRow key={index}>
                                         <StyledTableCell component="th" scope="row">

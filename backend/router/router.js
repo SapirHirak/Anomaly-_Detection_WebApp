@@ -10,7 +10,6 @@ router.get('/api/model', (req, res) => {
 })
 
 router.get('/clinets', (req, res) => {
-    // let value=res
     Client.find({}).exec(function (err, response) {
         res.send(response)
 
